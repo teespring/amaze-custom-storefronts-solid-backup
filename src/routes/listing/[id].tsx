@@ -1,6 +1,6 @@
 import { Title, useParams } from "solid-start";
 import Counter from "~/components/Counter";
-import CapitalizeFirstLetter from "~/components/CapitalizeFirstLets";
+import CapitalizeFirstLetter from "~/components/helpers/CapitalizeFirstLets";
 export default function CategoryPage() {
     const params = useParams();
   return (

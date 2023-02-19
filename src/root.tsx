@@ -53,8 +53,6 @@ export default function Root() {
           content={`https://og-image.vercel.app/boop.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
         <Meta name="twitter:card" content="summary_large_image" />
-        <Meta name="twitter:label1" content="Est. reading time" />
-        <Meta name="twitter:data1" content="9 minutes"/>
         <Meta
           name="robots"
           content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -63,30 +61,12 @@ export default function Root() {
         <Link rel="shortlink" href="https://amaze.co/" />
         <Link
           rel="icon"
-          href="https://amaze.co/wp-content/uploads/2022/09/cropped-favicon_amaze-32x32.png"
-          sizes="32x32"
-        />
-        <Link
-          rel="icon"
-          href="https://amaze.co/wp-content/uploads/2022/09/cropped-favicon_amaze-192x192.png"
-          sizes="192x192"
-        />
-        <Link
-          rel="apple-touch-icon"
-          href="https://amaze.co/wp-content/uploads/2022/09/cropped-favicon_amaze-180x180.png"
-        />
-        <Meta
-          name="msapplication-TileImage"
-          content="https://amaze.co/wp-content/uploads/2022/09/cropped-favicon_amaze-270x270.png"
+          href="/favicon.png"
         />
       </Head>
       <Body>
         <Suspense>
           <ErrorBoundary>
-            <A href="/">Index</A>
-            <A href="/listing/ian-boop">My Listing</A>
-            <A href="/listing">Main Listing Page</A>
-            <A href="/fun-things">My Collection</A>
             <Routes>
               <FileRoutes />
             </Routes>
