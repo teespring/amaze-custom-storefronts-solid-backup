@@ -45,6 +45,10 @@ export default function Home() {
       <main>
         <Title>{storeInfo()?.name}</Title>
         <Meta property="og:title" content={storeInfo()?.name} />
+        <Meta
+          property="og:image"
+          content={storeInfo()?.banner}
+        />
         <h1>Hello world!</h1>
         <Counter />
         <p>
