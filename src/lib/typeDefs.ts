@@ -41,10 +41,10 @@ interface HeroBanner {
 }
 
 interface FontType {
-    letterSpacing: string,
-    fontSize: string,
-    fontWeight: string,
-    textTransform: string,
+    letterSpacing?: string,
+    fontSize?: string,
+    fontWeight?: string,
+    textTransform?: string,
 }
 
 interface Typography {
