@@ -7,7 +7,7 @@ export default defineConfig(() => {
   dotenv.config();
   return {
     plugins: [solid({
-      adapter: netlify({ edge: true })
+      ssr:false, adapter: netlify({ edge: true })
     })],
   };
 });

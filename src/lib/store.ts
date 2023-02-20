@@ -1,5 +1,5 @@
-import { createSignal, createResource } from 'solid-js';
-import { StoreInfo, ThemeInfo } from './typeDefs';
+import { createResource } from 'solid-js';
+import { ThemeInfo } from './typeDefs';
 
 export const [themeInfo] = createResource<ThemeInfo>(
   () =>

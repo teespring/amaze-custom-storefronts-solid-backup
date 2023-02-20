@@ -10,7 +10,6 @@ import {
 } from "solid-start";
 import CapitalizeFirstLetter from "~/components/helpers/CapitalizeFirstLets";
 import CollectionLoader from "~/components/loaders/CollectionLoader";
-import MainHeader from "~/components/menus/mainHeader";
 import GetStoreInfo from "~/lib/getStoreInfo";
 
 export function routeData({ params } : RouteDataArgs) {
@@ -38,9 +37,6 @@ export default function CategoryPage() {
             rel="icon"
             href={storeInfo()?.logo}
           /> */}
-          <Show when={storeInfo()}>
-            <MainHeader/>
-          </Show>
           
           <h1>Hello {CapitalizeFirstLetter(params.category)}</h1>
         </main>

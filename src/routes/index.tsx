@@ -8,7 +8,6 @@ import {
   Link,
 } from "solid-start";
 import CollectionLoader from "~/components/loaders/CollectionLoader";
-import MainHeader from "~/components/menus/mainHeader";
 import GetStoreInfo from "~/lib/getStoreInfo";
 import { useBrowserLocation } from 'solidjs-use'
 
@@ -25,7 +24,6 @@ export function routeData({ params } : RouteDataArgs) {
 }
 
 export default function Home() {
-  
   const storeInfo = useRouteData<typeof routeData>();
   return (
     <>
@@ -42,9 +40,6 @@ export default function Home() {
             rel="icon"
             href={storeInfo()?.logo}
           /> */}
-          <Show when={storeInfo()}>
-            <MainHeader/>
-          </Show>
           
           <h1>Hello Home!</h1>
         </main>
