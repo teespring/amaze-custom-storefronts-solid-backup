@@ -54,7 +54,6 @@ export default function Root() {
         />
       </Head>
       <Body>
-        <MainHeader/>
         <Suspense>
           <ErrorBoundary>
             <Routes>

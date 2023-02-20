@@ -10,6 +10,7 @@ import {
 import CollectionLoader from "~/components/loaders/CollectionLoader";
 import GetStoreInfo from "~/lib/getStoreInfo";
 import { useBrowserLocation } from 'solidjs-use'
+import MainHeader from "~/components/menus/mainHeader";
 
 export function routeData({ params } : RouteDataArgs) {
   const location = useBrowserLocation()
@@ -40,7 +41,7 @@ export default function Home() {
             rel="icon"
             href={storeInfo()?.logo}
           /> */}
-          
+          <MainHeader/>
           <h1>Hello Home Site!</h1>
         </main>
       </Suspense>
