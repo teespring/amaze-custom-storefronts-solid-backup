@@ -1,5 +1,5 @@
 // @refresh reload
-import { createReaction, createResource, Suspense } from "solid-js";
+import { Suspense } from "solid-js";
 import {
   A,
   Body,
@@ -12,22 +12,10 @@ import {
   Routes,
   Scripts,
   Title,
-  createRouteData,
-  RouteDataArgs,
-  useRouteData
 } from "solid-start";
 import "./root.css";
-import server from 'solid-start/server';
-
-// const storeInfo = server(async (store: string) => {
-//   console.log("ON THE SERVER");
-//   return `Hello From Server ${store}`;
-// });
-
-
 
 export default function Root() {
-  
   return (
     <Html lang="en">
       <Head>
