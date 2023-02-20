@@ -30,16 +30,16 @@ export default function CategoryPage() {
         <main>
           <Title>{CapitalizeFirstLetter(params.category)} Collection</Title>
           <Meta property="og:title" content={CapitalizeFirstLetter(params.category)} />
-          <Meta
+          {/* <Meta
             property="og:image"
             content={storeInfo()?.banner}
           />
           <Link
             rel="icon"
             href={storeInfo()?.logo}
-          />
+          /> */}
           <Show when={storeInfo()}>
-            <MainHeader logo={storeInfo()?.logo} styles={storeInfo()?.styles.header} storeName={storeInfo()?.name} collections={storeInfo()?.collections}/>
+            <MainHeader/>
           </Show>
           
           <h1>Hello {CapitalizeFirstLetter(params.category)}</h1>

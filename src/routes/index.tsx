@@ -14,7 +14,6 @@ import { useBrowserLocation } from 'solidjs-use'
 
 export function routeData({ params } : RouteDataArgs) {
   const location = useBrowserLocation()
-  console.log('Location',location())
   const hrefArray = location().href?.replace(`${location().protocol}//`,'').split('.');
   const subDomain = hrefArray ? hrefArray[0] : 'www';
   // const slug = process.env.SOLID_APP_STORE_SLUG ? process.env.SOLID_APP_STORE_SLUG : subDomain;
@@ -35,16 +34,16 @@ export default function Home() {
         <main>
           <Title>{storeInfo()?.name}</Title>
           <Meta property="og:title" content={storeInfo()?.name} />
-          <Meta
+          {/* <Meta
             property="og:image"
             content={storeInfo()?.banner}
           />
           <Link
             rel="icon"
             href={storeInfo()?.logo}
-          />
+          /> */}
           <Show when={storeInfo()}>
-            <MainHeader logo={storeInfo()?.logo} styles={storeInfo()?.styles.header} storeName={storeInfo()?.name} collections={storeInfo()?.collections}/>
+            <MainHeader/>
           </Show>
           
           <h1>Hello Home!</h1>
