@@ -13,7 +13,6 @@ import {
   Scripts,
   Title,
 } from "solid-start";
-import MainHeader from "./components/menus/mainHeader";
 import "./root.css";
 
 export default function Root() {
@@ -54,7 +53,6 @@ export default function Root() {
         />
       </Head>
       <Body>
-        <MainHeader/>
         <Suspense>
           <ErrorBoundary>
             <Routes>
