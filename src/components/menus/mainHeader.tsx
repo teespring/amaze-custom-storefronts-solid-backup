@@ -22,16 +22,16 @@ export default function MainHeader ( ) {
                     <A href="/">
                         <div class={styles.logo}>
                             <h1 style={`color:${[theme()?.styles.header.textStyles.color]}`}>Brownie Bits</h1>
-                            {/* <Show 
+                            <Show 
                             when={themeInfo().content.header.logo != ''}
                             fallback={<h1 style={`color:${[themeInfo().styles.header.textStyles.color]}`}>Brownie Bits</h1>}>
                                 <img src={themeInfo().content.header.logo} height={themeInfo().styles.header.logo.maxHeight}/>
-                            </Show> */}
+                            </Show>
                         </div>
                     </A>
                     <nav class={styles.nav}>
                         
-                    {/* <For each={props.collections}>
+                     <For each={props.collections}>
                         {collection => {
                             return <li>
                             <A href={`/${collection.name}`}>
@@ -39,11 +39,11 @@ export default function MainHeader ( ) {
                             </A>
                             </li>
                         }}
-                    </For> */}
+                    </For> 
                     </nav>
                 </header>
             </Show>
-        </Suspense> */}
+        </Suspense>  */}
         </>
     )
 }
