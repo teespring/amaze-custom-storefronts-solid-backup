@@ -13,7 +13,6 @@ import GetStoreInfo from "~/lib/getStoreInfo";
 import { useBrowserLocation } from 'solidjs-use'
 
 export function routeData({ params } : RouteDataArgs) {
-  console.log(params)
   const location = useBrowserLocation()
   console.log('Location',location())
   const hrefArray = location().href?.replace(`${location().protocol}//`,'').split('.');

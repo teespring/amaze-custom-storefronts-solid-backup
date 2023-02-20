@@ -18,6 +18,7 @@
   "dependencies": {
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.7.0",
+    "dotenv": "^16.0.3",
     "sass": "^1.58.3",
     "solid-js": "^1.6.11",
     "solid-start": "^0.2.21",
