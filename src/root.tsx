@@ -13,7 +13,6 @@ import {
   Scripts,
   Title,
 } from "solid-start";
-import MainHeader from "./components/menus/mainHeader";
 import "./root.css";
 
 export default function Root() {
