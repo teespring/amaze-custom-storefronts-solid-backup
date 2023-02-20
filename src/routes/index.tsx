@@ -18,7 +18,8 @@ export function routeData({ params } : RouteDataArgs) {
   console.log('Location',location())
   const hrefArray = location().href?.replace(`${location().protocol}//`,'').split('.');
   const subDomain = hrefArray ? hrefArray[0] : 'www';
-  const slug = process.env.STORE_SLUG ? process.env.STORE_SLUG : subDomain;
+  const slug = process.env.SOLID_APP_STORE_SLUG ? process.env.SOLID_APP_STORE_SLUG : subDomain;
+  console.log(slug)
   return createRouteData(
     async key => GetStoreInfo(key[0]),
     { key: () => [slug] }
