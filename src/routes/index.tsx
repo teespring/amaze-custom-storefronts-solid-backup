@@ -16,9 +16,12 @@ export function routeData({ params } : RouteDataArgs) {
   console.log(params)
   const location = useBrowserLocation()
   console.log('Location',location())
+  const hrefArray = location().href?.replace(`${location().protocol}//`,'').split('.');
+  const subDomain = hrefArray ? hrefArray[0] : 'www';
+  const slug = process.env.STORE_SLUG ? process.env.STORE_SLUG : subDomain;
   return createRouteData(
     async key => GetStoreInfo(key[0]),
-    { key: () => ["browniebits"] }
+    { key: () => [slug] }
   );
 }
 
