@@ -1,23 +1,24 @@
 import styles from './mainHeader.module.scss';
 import { Show, For } from "solid-js";
 import { A, useLocation } from "solid-start";
-import { themeInfo } from '../../lib/store';
+// import { themeInfo } from '../../lib/store';
 
 export default function MainHeader ( ) {
     const location = useLocation();
     return (
         <Show 
-        when={themeInfo().storeKey != '' && location.pathname != '/checkout'}
+        when={location.pathname != '/checkout'}
         fallback={<></>}
         >
-            <header class={styles.header} style={`background:${themeInfo().styles.header.bgStyles.backgroundColor}`}>
+            <header class={styles.header} style={`background:#000000`}>
                 <A href="/">
                     <div class={styles.logo}>
-                        <Show 
+                        <h1 style={`color:#ffffff`}>Brownie Bits</h1>
+                        {/* <Show 
                         when={themeInfo().content.header.logo != ''}
                         fallback={<h1 style={`color:${[themeInfo().styles.header.textStyles.color]}`}>Brownie Bits</h1>}>
                             <img src={themeInfo().content.header.logo} height={themeInfo().styles.header.logo.maxHeight}/>
-                        </Show>
+                        </Show> */}
                     </div>
                 </A>
                 <nav class={styles.nav}>
