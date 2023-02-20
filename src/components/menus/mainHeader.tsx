@@ -1,13 +1,12 @@
 import styles from './mainHeader.module.scss';
 import { Show, For } from "solid-js";
-import { A, useLocation } from "solid-start";
+import { A } from "solid-start";
 import { themeInfo } from '../../lib/store';
 
 export default function MainHeader ( ) {
-    const location = useLocation();
     return (
         <Show 
-        when={themeInfo().storeKey != '' && location.pathname != '/checkout'}
+        when={themeInfo().storeKey != ''}
         fallback={<></>}
         >
             <header class={styles.header} style={`background:${themeInfo().styles.header.bgStyles.backgroundColor}`}>
