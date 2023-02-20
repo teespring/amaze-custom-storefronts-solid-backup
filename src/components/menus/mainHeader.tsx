@@ -1,7 +1,7 @@
 import styles from './mainHeader.module.scss';
 import { Show, For } from "solid-js";
 import { A, useLocation } from "solid-start";
-// import { themeInfo } from '../../lib/store';
+import { themeInfo } from '../../lib/store';
 
 export default function MainHeader ( ) {
     const location = useLocation();
@@ -13,7 +13,7 @@ export default function MainHeader ( ) {
             <header class={styles.header} style={`background:#000000`}>
                 <A href="/">
                     <div class={styles.logo}>
-                        <h1 style={`color:#ffffff`}>Brownie Bits</h1>
+                        <h1 style={`color:${[themeInfo().styles.header.textStyles.color]}`}>Brownie Bits</h1>
                         {/* <Show 
                         when={themeInfo().content.header.logo != ''}
                         fallback={<h1 style={`color:${[themeInfo().styles.header.textStyles.color]}`}>Brownie Bits</h1>}>
