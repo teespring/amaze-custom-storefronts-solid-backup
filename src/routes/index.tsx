@@ -41,7 +41,7 @@ export default function Home() {
             href={storeInfo()?.logo}
           /> */}
           
-          <h1>Hello Home!</h1>
+          <h1>Hello Home Site!</h1>
         </main>
       </Suspense>
     </>
