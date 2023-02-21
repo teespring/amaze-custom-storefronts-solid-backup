@@ -3,6 +3,7 @@ import { Show, For, Suspense, createResource } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 import { ThemeInfo, Collections } from '../../lib/typeDefs';
 import LogoImage from '../logoImage';
+import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
 const fetchTheme = async () =>
   (
@@ -50,7 +51,7 @@ export default function MainHeader() {
                   </h1>
                 }
               >
-                <LogoImage url={theme().content?.header.logo} />
+                <img src={FixAssetPathUrl(theme().content?.header.logo!)} height='44px'/>
               </Show>
             </div>
           </A>
