@@ -5,11 +5,7 @@ import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
 
 export default function Home() {
-  const location = useBrowserLocation();
-  const hrefArray = location()
-    .href?.replace(`${location().protocol}//`, '')
-    .split('.');
-  const subDomain = hrefArray ? hrefArray[0] : 'www';
+
   const { theme, storeInfo } = useStoreInfo()!;
   return (
     <main>

@@ -1,6 +1,13 @@
 import { createResource, createContext, useContext, Resource, JSX } from 'solid-js';
+import { useBrowserLocation } from 'solidjs-use';
 import { ThemeInfo, StoreInfo, Collections } from './typeDefs';
 
+const location = useBrowserLocation();
+  const hrefArray = location()
+    .href?.replace(`${location().protocol}//`, '')
+    .split('.');
+  const subDomain = hrefArray ? hrefArray[0] : 'www';
+  console.log(location())
 const fetchTheme = async () => (await fetch(`https://kxqd7cf966.execute-api.us-west-1.amazonaws.com/dev/themes?siteKey=browniebits`)).json();
 const fetchStoreInfo = async () => (await fetch('https://commerce.teespring.com/v1/stores?slug=browniebits')).json();
 const fetchCollections = async () => (await fetch('https://commerce.teespring.com/v1/stores/collections?slug=browniebits')).json();
