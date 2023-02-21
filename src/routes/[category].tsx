@@ -1,3 +1,4 @@
+import { Show } from 'solid-js';
 import { Title, Meta, useParams } from 'solid-start';
 import CapitalizeFirstLetter from '~/components/helpers/CapitalizeFirstLets';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
@@ -19,10 +20,12 @@ export default function CategoryPage() {
           storeInfo()?.name
         } Store`}
       />
-      <Meta
-        property="og:image"
-        content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
-      />
+      <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
+        <Meta
+          property="og:image"
+          content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+        />
+      </Show>
 
       <h1>Hello {CapitalizeFirstLetter(params.category)}</h1>
     </main>

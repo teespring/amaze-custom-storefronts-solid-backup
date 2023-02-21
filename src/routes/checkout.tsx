@@ -1,29 +1,25 @@
-import { Suspense,Show } from "solid-js";
-import { 
-  Title,
-  Meta,
-} from "solid-start";
-
+import { Suspense, Show } from 'solid-js';
+import { Title, Meta } from 'solid-start';
+import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
+import { useStoreInfo } from '~/lib/store';
 
 export default function CheckoutPage() {
+  const { theme, storeInfo } = useStoreInfo()!;
   return (
-    <>
-      <Suspense fallback={<></>}>
-        <main>
-          <Title>Checkout Page</Title>
-          <Meta property="og:title" content="Checkout Page" />
-          {/* <Meta
-            property="og:image"
-            content={storeInfo()?.banner}
-          />
-          <Link
-            rel="icon"
-            href={storeInfo()?.logo}
-          /> */}
-          
-          <h1>Hello Checkout</h1>
-        </main>
-      </Suspense>
-    </>
+    <main>
+      <Title>{`Checkout - ${storeInfo()?.name} Store`}</Title>
+      <Meta
+        property="og:title"
+        content={`Checkout - ${storeInfo()?.name} Store`}
+      />
+      <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
+        <Meta
+          property="og:image"
+          content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+        />
+      </Show>
+
+      <h1>Hello Checkout</h1>
+    </main>
   );
 }

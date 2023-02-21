@@ -15,10 +15,13 @@ export default function Home() {
     <main>
       <Title>{storeInfo()?.name}</Title>
       <Meta property="og:title" content={storeInfo()?.name} />
-      <Meta
-        property="og:image"
-        content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
-      />
+      <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
+        <Meta
+          property="og:image"
+          content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+        />
+      </Show>
+      
       <Link rel="icon" href={FixAssetPathUrl(theme()?.content?.favicon!)} />
       <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
         <div class="hero">
