@@ -1,7 +1,7 @@
 import styles from './mainHeader.module.scss';
 import { Show, For, Suspense, createResource } from 'solid-js';
 import { A, useLocation } from 'solid-start';
-import { ThemeInfo, Collections } from '../../lib/typeDefs';
+import { ThemeInfo, Collections, StoreInfo } from '../../lib/typeDefs';
 import LogoImage from '../logoImage';
 import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
@@ -17,6 +17,10 @@ const fetchCollections = async () =>
       'https://commerce.teespring.com/v1/stores/collections?slug=browniebits'
     )
   ).json();
+const fetchStore = async () =>
+  (
+    await fetch('https://commerce.teespring.com/v1/stores?slug=browniebits')
+  ).json();
 
 export default function MainHeader() {
   const location = useLocation();
@@ -24,6 +28,7 @@ export default function MainHeader() {
   const [collections] = createResource<Collections>(fetchCollections, {
     initialValue: { storeId: 0, storeSlug: '', collections: [] },
   });
+  const [store] = createResource<StoreInfo>(fetchStore, { initialValue: {} });
   return (
     <>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
@@ -47,11 +52,14 @@ export default function MainHeader() {
                         : '#000000'
                     }`}
                   >
-                    Brownie Bits
+                    {store().name}
                   </h1>
                 }
               >
-                <img src={FixAssetPathUrl(theme().content?.header.logo!)} height='44px'/>
+                <img
+                  src={FixAssetPathUrl(theme().content?.header.logo!)}
+                  height="44px"
+                />
               </Show>
             </div>
           </A>
@@ -80,7 +88,9 @@ export default function MainHeader() {
               }}
             </For>
           </nav>
-          <div class={styles.rightBar}></div>
+          <div class={styles.rightBar}>
+            <A href="/checkout">Checkout</A>
+          </div>
         </header>
       </Show>
     </>

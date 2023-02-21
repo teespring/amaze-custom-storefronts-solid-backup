@@ -38,6 +38,7 @@ export default function Home() {
           <img src={FixAssetPathUrl(theme().content?.heroBanner.containerBg!)}/>
         </div>
       </Show>
+      <h1>Hello Home</h1>
     </main>
   );
 }
