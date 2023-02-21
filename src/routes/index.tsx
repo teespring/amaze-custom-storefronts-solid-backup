@@ -1,47 +1,49 @@
-import { Suspense,Show } from "solid-js";
+import { Suspense,Show, createResource } from "solid-js";
 import { 
   Title,
-  createRouteData,
-  RouteDataArgs,
-  useRouteData,
   Meta,
-  Link,
+  Link
 } from "solid-start";
-import CollectionLoader from "~/components/loaders/CollectionLoader";
-import GetStoreInfo from "~/lib/getStoreInfo";
 import { useBrowserLocation } from 'solidjs-use'
-import MainHeader from "~/components/menus/mainHeader";
+import FixAssetPathUrl from "~/components/helpers/FixAssetPathUrl";
+import { ThemeInfo, StoreInfo } from '../lib/typeDefs';
 
-export function routeData({ params } : RouteDataArgs) {
+const fetchTheme = async () =>
+  (
+    await fetch(
+      'https://kxqd7cf966.execute-api.us-west-1.amazonaws.com/dev/themes?siteKey=browniebits'
+    )
+  ).json();
+  const fetchStore = async () =>
+  (
+    await fetch(
+      'https://commerce.teespring.com/v1/stores?slug=browniebits'
+    )
+  ).json();
+
+export default function Home() {
   const location = useBrowserLocation()
   const hrefArray = location().href?.replace(`${location().protocol}//`,'').split('.');
   const subDomain = hrefArray ? hrefArray[0] : 'www';
-  // const slug = process.env.SOLID_APP_STORE_SLUG ? process.env.SOLID_APP_STORE_SLUG : subDomain;
-  // console.log(slug)
-  return createRouteData(
-    async key => GetStoreInfo(key[0]),
-    { key: () => ['browniebits'] }
-  );
-}
-
-export default function Home() {
-  const storeInfo = useRouteData<typeof routeData>();
+  const [theme] = createResource<ThemeInfo>(fetchTheme, { initialValue: {} });
+  const [store] = createResource<StoreInfo>(fetchStore, { initialValue: {} });
+  console.log(store())
   return (
     <>
-      <span style="display:none">{storeInfo()?.name}</span>
-      <Suspense fallback={<CollectionLoader/>}>
+      <span style="display:none">{store().name}</span>
+      <Suspense fallback={<></>}>
         <main>
-          <Title>{storeInfo()?.name}</Title>
-          <Meta property="og:title" content={storeInfo()?.name} />
-          {/* <Meta
+          <Title>{store().name}</Title>
+          <Meta property="og:title" content={store().name} />
+          <Meta
             property="og:image"
-            content={storeInfo()?.banner}
+            content={FixAssetPathUrl(theme().content?.heroBanner.containerBg!)}
           />
           <Link
             rel="icon"
-            href={storeInfo()?.logo}
-          /> */}
-          <h1>Hello Home Site!</h1>
+            href={FixAssetPathUrl(theme().content?.heroBanner.containerBg!)}
+          />
+          <h1>Hello {store().name}!</h1>
         </main>
       </Suspense>
     </>
