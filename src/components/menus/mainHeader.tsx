@@ -1,8 +1,7 @@
 import styles from './mainHeader.module.scss';
-import { Show, For, Suspense, createResource } from 'solid-js';
+import { Show, For } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 import { useStoreInfo } from '../../lib/store';
-import LogoImage from '../logoImage';
 import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
 
