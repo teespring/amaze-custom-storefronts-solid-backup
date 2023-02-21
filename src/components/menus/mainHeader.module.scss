@@ -9,11 +9,37 @@
         max-height: 44px;
         max-width: 300px;
         padding: 0 30px ;
+        min-width: 250px;
         h1 {
             margin:0;
             font-size: 24px;
             font-weight: 400;
             line-height: 1.1;
         }
+    }
+    .nav {
+        flex: 1;
+        display: flex;
+        gap: 30px;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        list-style:none;
+        li {            
+            a {
+                text-decoration: none;
+                transition: border .25s ease;
+                border: 1px solid inherit;
+                padding: 10px 25px;
+                margin: 0;
+                &.selected {
+                    border: 1px solid white;
+                }
+            }
+        }
+    }
+    .rightBar {
+        min-width: 250px;
+        padding: 0 30px ;
     }
 }

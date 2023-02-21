@@ -1,18 +1,24 @@
 interface HeaderStyles {
-    bgStyles: {backgroundColor: string},
-    logo: {maxHeight: string},
+    bgStyles: { backgroundColor: string },
+    logo: { maxHeight: string },
     template: number,
-    textStyles: {color: string},
+    textStyles: { color: string },
 };
 
-interface Collection { 
-    name: string, 
+interface Collection {
+    name: string,
     slug: string,
-    collections?: { 
-        name: string, 
-        slug: string, 
+    collections?: {
+        name: string,
+        slug: string,
     }[]
 };
+
+export interface Collections {
+    storeId: number,
+    storeSlug: string,
+    collections: Collection[]
+}
 
 interface Button {
     color: string,
@@ -59,8 +65,8 @@ interface Typography {
 }
 
 interface Styles {
-    about: {bgStyles: object, textStyles: object},
-    button: { primary: Button, secondary: Button},
+    about: { bgStyles: object, textStyles: object },
+    button: { primary: Button, secondary: Button },
     customCSS: string,
     fonts: string[],
     footer: Footer,
@@ -75,7 +81,7 @@ interface Styles {
     typography: Typography,
 };
 
-export  interface StoreInfo {
+export interface StoreInfo {
     name: string,
     slug: string,
     logo: string,
@@ -104,7 +110,7 @@ export  interface StoreInfo {
 
 
 interface Content {
-    about: { aboutText: {id: string, text: string}[] },
+    about: { aboutText: { id: string, text: string }[] },
     categories: string[],
     favicon: string,
     footer: { about: { textContent: string }, newsletter: boolean, showSocialIcons: boolean },
@@ -139,11 +145,11 @@ interface Meta {
 };
 
 export interface ThemeInfo {
-    content: Content,
-    storeKey: string,
-    userId: number,
-    meta: Meta,
-    brand: { socialMedia: string[] },
-    layout: { productList: { grid: string }, heroBanner: { type: number } },
-    styles: Styles,
+    content?: Content,
+    storeKey?: string,
+    userId?: number,
+    meta?: Meta,
+    brand?: { socialMedia: string[] },
+    layout?: { productList: { grid: string }, heroBanner: { type: number } },
+    styles?: Styles,
 }
