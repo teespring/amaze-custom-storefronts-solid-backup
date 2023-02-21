@@ -41,7 +41,6 @@ export default function Home() {
             rel="icon"
             href={storeInfo()?.logo}
           /> */}
-          <MainHeader/>
           <h1>Hello Home Site!</h1>
         </main>
       </Suspense>

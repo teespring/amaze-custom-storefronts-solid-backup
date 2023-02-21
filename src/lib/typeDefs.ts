@@ -139,7 +139,6 @@ interface Meta {
 };
 
 export interface ThemeInfo {
-    id: string,
     content: Content,
     storeKey: string,
     userId: number,
