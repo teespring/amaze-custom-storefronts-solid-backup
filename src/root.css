@@ -41,3 +41,11 @@ p {
     max-width: none;
   }
 }
+
+.hero {
+  width: 100%;
+}
+
+.hero img {
+  width: 100%;
+}
