@@ -22,7 +22,7 @@ export default function Home() {
       <Link rel="icon" href={FixAssetPathUrl(theme()?.content?.favicon!)} />
       <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
         <div class="hero">
-          <img src={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}/>
+          <img src={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)} alt="Hero Banner"/>
         </div>
       </Show>
       <h1>Hello Home</h1>

@@ -3,8 +3,8 @@ import { Show, For } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 import { useStoreInfo } from '../../lib/store';
 import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
-
-
+import Fa from 'solid-fa';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 export default function MainHeader() {
   const location = useLocation();
@@ -29,7 +29,7 @@ export default function MainHeader() {
                     style={`color:${
                       theme()?.styles
                         ? theme()?.styles?.header.textStyles.color
-                        : '#000000'
+                        : '#ffffff'
                     }`}
                   >
                     {storeInfo()?.name}
@@ -58,7 +58,7 @@ export default function MainHeader() {
                       style={`color:${
                         theme()?.styles
                           ? theme()?.styles?.header.textStyles.color
-                          : '#000000'
+                          : '#ffffff'
                       }`}
                     >
                       {collection.name}
@@ -69,7 +69,13 @@ export default function MainHeader() {
             </For>
           </nav>
           <div class={styles.rightBar}>
-            <A href="/checkout">Checkout</A>
+            <A href="/checkout">
+              <Fa icon={faCartShopping} color={
+                        theme()?.styles
+                          ? theme()?.styles?.header.textStyles.color
+                          : '#ffffff'
+                      } />
+            </A>
           </div>
         </header>
       </Show>
