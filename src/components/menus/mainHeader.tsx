@@ -1,7 +1,7 @@
 import styles from './mainHeader.module.scss';
 import { Show, For, Suspense, createResource } from "solid-js";
 import { A, useLocation } from "solid-start";
-import { theme } from '../../lib/store';
+// import { theme } from '../../lib/store';
 
 
 // export default function MainHeader ( ) {
@@ -45,7 +45,7 @@ import { theme } from '../../lib/store';
 //     )
 // }
 
-const fetchJokes = async () => (await fetch('https://official-joke-api.appspot.com/jokes/programming/ten%60')).json();
+const fetchJokes = async () => (await fetch('https://official-joke-api.appspot.com/jokes/programming/ten')).json();
 
 export default function MainHeader ( ) {
     const [jokes] = createResource(fetchJokes);
