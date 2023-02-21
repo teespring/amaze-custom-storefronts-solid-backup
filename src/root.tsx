@@ -14,6 +14,7 @@ import {
   Title,
 } from "solid-start";
 import MainHeader from "./components/menus/mainHeader";
+import { StoreProvider } from '../src/lib/store';
 import "./root.css";
 
 export default function Root() {
@@ -55,11 +56,13 @@ export default function Root() {
       </Head>
       <Body>
         <Suspense>
-          <MainHeader/>
           <ErrorBoundary>
-            <Routes>
-              <FileRoutes />
-            </Routes>
+            <StoreProvider>
+              <MainHeader/>
+              <Routes>
+                <FileRoutes />
+              </Routes>
+            </StoreProvider>
           </ErrorBoundary>
         </Suspense>
         <Scripts />
