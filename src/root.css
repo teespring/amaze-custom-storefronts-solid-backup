@@ -14,6 +14,7 @@ main {
   text-align: center;
   padding: 0;
   margin: 0 auto;
+  padding-top: 64px;
 }
 
 h1 {

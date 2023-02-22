@@ -65,30 +65,38 @@ export default function MainHeader() {
                 );
               }}
             </For>
-            <div class={styles.navItem}>
-                    <A
-                      class={`${
-                        location.pathname == '/about'
-                          ? styles.selected
-                          : ''
-                      }`}
-                      href={`/about`}
-                      style={`color:${
-                        theme()?.styles
-                          ? theme()?.styles?.header.textStyles.color
-                          : '#000000'
-                      }`}
-                    >
-                      About
-                    </A>
-                  </div>
+            <Show
+              when={theme()?.content?.footer.about.textContent}
+              fallback={<></>}
+            >
+              <div class={styles.navItem}>
+                <A
+                  class={`${
+                    location.pathname == '/about' ? styles.selected : ''
+                  }`}
+                  href={`/about`}
+                  style={`color:${
+                    theme()?.styles
+                      ? theme()?.styles?.header.textStyles.color
+                      : '#000000'
+                  }`}
+                >
+                  About
+                </A>
+              </div>
+            </Show>
           </nav>
           <div class={styles.rightBar}>
-            <A href="/checkout" style={`color:${
-                        theme()?.styles
-                          ? theme()?.styles?.header.textStyles.color
-                          : '#000000'
-                      }`}>Checkout</A>
+            <A
+              href="/Cart"
+              style={`color:${
+                theme()?.styles
+                  ? theme()?.styles?.header.textStyles.color
+                  : '#000000'
+              }`}
+            >
+              Cart
+            </A>
           </div>
         </header>
       </Show>

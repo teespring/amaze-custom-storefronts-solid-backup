@@ -37,7 +37,6 @@ export default function Home() {
           />
         </div>
       </Show>
-      <h1>Hello Home</h1>
       <Show
         when={productCollection().count && productCollection().count! > 0}
         fallback={<></>}

@@ -1,5 +1,5 @@
-import { Suspense, Show } from 'solid-js';
-import { Title, Meta } from 'solid-start';
+import { Show } from 'solid-js';
+import { Title, Meta, A } from 'solid-start';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
 
@@ -20,6 +20,7 @@ export default function CheckoutPage() {
       </Show>
 
       <h1>Hello Checkout</h1>
+      <A href="/cart">Back to Cart</A>
     </main>
   );
 }
