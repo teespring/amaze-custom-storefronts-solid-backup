@@ -47,7 +47,7 @@ export default function Home() {
             {(product) => {
               return (
                 <A href={`/${product.url}`}>
-                  <img src={product.imageUrl} />
+                  <img src={product.imageUrl} alt={product.name} />
                   {product.name}
                 </A>
               );
