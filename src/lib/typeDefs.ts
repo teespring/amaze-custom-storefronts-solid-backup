@@ -165,3 +165,42 @@ export interface ThemeInfo {
   layout?: { productList: { grid: string }; heroBanner: { type: number } };
   styles?: Styles;
 }
+
+export interface Product {
+  imageUrl?: string;
+  additionalImages?: {
+    front?: {
+      src?: string;
+    };
+    back?: {
+      src?: string;
+    };
+  };
+  daysLeft?: number;
+  id?: number;
+  name?: string;
+  price?: string;
+  productGroupName?: string;
+  productName?: string;
+  timeLeft?: string;
+  url?: string;
+  orders?: 0;
+  twitchSubOnly?: false;
+  collections?: {
+    id?: number;
+    name?: string;
+    slug?: string;
+  }[];
+  listingId?: number;
+}
+
+export interface ProductCollection {
+  products?: Product[];
+  count?: number;
+  total_count?: number;
+  page?: 1;
+  next?: string;
+  per_page?: number;
+  facebook_pixel_html?: string;
+  collection?: string;
+}

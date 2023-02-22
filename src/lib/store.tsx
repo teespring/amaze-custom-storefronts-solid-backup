@@ -13,6 +13,7 @@ const fetchStoreInfo = async () => (await fetch('https://commerce.teespring.com/
 const fetchCollections = async () => (await fetch('https://commerce.teespring.com/v1/stores/collections?slug=browniebits')).json();
 
 interface ContextInterface {
+    slug: string
     theme: Resource<ThemeInfo>, 
     storeInfo: Resource<StoreInfo>, 
     collections: Resource<Collections>
@@ -24,6 +25,7 @@ export function StoreProvider ( props: {children: JSX.Element} ) {
     const [storeInfo] = createResource<StoreInfo>(fetchStoreInfo, { initialValue: {} });
     const [collections] = createResource<Collections>(fetchCollections, { initialValue: { storeId: 0, storeSlug: "browniebits", collections: []} });
     const value: ContextInterface = {
+        slug: 'browniebits',
         theme: theme,
         storeInfo: storeInfo,
         collections: collections

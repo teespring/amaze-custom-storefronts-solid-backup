@@ -45,7 +45,7 @@ export default function MainHeader() {
             <For each={collections()?.collections}>
               {(collection) => {
                 return (
-                  <li>
+                  <div class={styles.navItem}>
                     <A
                       class={`${
                         location.pathname == '/' + collection.slug
@@ -61,10 +61,27 @@ export default function MainHeader() {
                     >
                       {collection.name}
                     </A>
-                  </li>
+                  </div>
                 );
               }}
             </For>
+            <div class={styles.navItem}>
+                    <A
+                      class={`${
+                        location.pathname == '/about'
+                          ? styles.selected
+                          : ''
+                      }`}
+                      href={`/about`}
+                      style={`color:${
+                        theme()?.styles
+                          ? theme()?.styles?.header.textStyles.color
+                          : '#000000'
+                      }`}
+                    >
+                      About
+                    </A>
+                  </div>
           </nav>
           <div class={styles.rightBar}>
             <A href="/checkout" style={`color:${
