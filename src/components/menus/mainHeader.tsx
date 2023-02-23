@@ -87,15 +87,124 @@ export default function MainHeader() {
             </Show>
           </nav>
           <div class={styles.rightBar}>
+            <Show when={theme()} fallback={<></>}>
+              <For each={theme()?.brand?.socialMedia}>
+                {(social) => {
+                  return (
+                    <div class={styles.socialLink}>
+                      <A
+                        href={social.url!}
+                        target="_blank"
+                        style={`color:${
+                          theme()?.styles
+                            ? theme()?.styles?.header.textStyles.color
+                            : '#000000'
+                        }`}
+                      >
+                        <Show when={social.id == 'youtube'} fallback={<></>}>
+                          <i
+                            class={`fa-brands fa-youtube`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                        <Show when={social.id == 'instagram'} fallback={<></>}>
+                          <i
+                            class={`fa-brands fa-instagram`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                        <Show when={social.id == 'website'} fallback={<></>}>
+                          <i
+                            class={`fa-solid fa-link`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                        <Show when={social.id == 'facebook'} fallback={<></>}>
+                          <i
+                            class={`fa-brands fa-facebook`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                        <Show when={social.id == 'twitter'} fallback={<></>}>
+                          <i
+                            class={`fa-brands fa-twitter`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                        <Show when={social.id == 'twitch'} fallback={<></>}>
+                          <i
+                            class={`fa-brands fa-twitch`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                        <Show when={social.id == 'discord'} fallback={<></>}>
+                          <i
+                            class={`fa-brands fa-discord`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                        <Show when={social.id == 'tiktok'} fallback={<></>}>
+                          <i
+                            class={`fa-brands fa-tiktok`}
+                            style={`color:${
+                              theme()?.styles
+                                ? theme()?.styles?.header.textStyles.color
+                                : '#000000'
+                            }`}
+                          />
+                        </Show>
+                      </A>
+                    </div>
+                  );
+                }}
+              </For>
+            </Show>
             <A
               href="/Cart"
+              class={styles.cartButton}
               style={`color:${
                 theme()?.styles
                   ? theme()?.styles?.header.textStyles.color
                   : '#000000'
               }`}
             >
-              Cart
+              <i
+                class="fa-solid fa-cart-shopping"
+                style={`color:${
+                  theme()?.styles
+                    ? theme()?.styles?.header.textStyles.color
+                    : '#000000'
+                }`}
+              />
+              <span>0</span>
             </A>
           </div>
         </header>

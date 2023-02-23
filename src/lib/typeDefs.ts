@@ -161,7 +161,7 @@ export interface ThemeInfo {
   storeKey?: string;
   userId?: number;
   meta?: Meta;
-  brand?: { socialMedia: string[] };
+  brand?: { socialMedia: {icon: string, id: string, label: string, url: string}[] };
   layout?: { productList: { grid: string }; heroBanner: { type: number } };
   styles?: Styles;
 }

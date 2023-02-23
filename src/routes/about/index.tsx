@@ -5,7 +5,6 @@ import { useStoreInfo } from '~/lib/store';
 
 export default function AboutPage() {
   const { theme, storeInfo } = useStoreInfo()!;
-  console.log(theme()?.content?.about)
   return (
     <Suspense>
     <main>

@@ -12,10 +12,13 @@ import {
   Routes,
   Scripts,
   Title,
+  Style,
 } from "solid-start";
 import MainHeader from "./components/menus/mainHeader";
 import { StoreProvider } from '../src/lib/store';
 import "./root.css";
+import MainFooter from "./components/menus/mainFooter";
+import ImportedStyles from "./components/importedStyles";
 
 export default function Root() {
   return (
@@ -62,10 +65,13 @@ export default function Root() {
               <Routes>
                 <FileRoutes />
               </Routes>
+              <MainFooter />
+              <ImportedStyles />
             </StoreProvider>
           </ErrorBoundary>
         </Suspense>
         <Scripts />
+        <script src="https://kit.fontawesome.com/fd72af6caf.js" crossorigin="anonymous"></script>
       </Body>
     </Html>
   );

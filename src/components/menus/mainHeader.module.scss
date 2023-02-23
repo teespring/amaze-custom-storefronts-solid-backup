@@ -5,13 +5,13 @@
     display:flex;
     align-items: center;
     justify-items: flex-start;
-    position:fixed;
-    border-bottom: 1px solid #ffffff;
+    position: -webkit-sticky;
+    position:sticky;
+    top:0;
+    border-bottom: 1px solid #d9d9d9;
     .logo {
         max-height: 44px;
-        max-width: 300px;
         padding: 0 30px ;
-        min-width: 250px;
         h1 {
             margin:0;
             font-size: 24px;
@@ -41,7 +41,31 @@
         }
     }
     .rightBar {
-        min-width: 250px;
         padding: 0 30px ;
+        border-left: 1px solid #d9d9d9;
+        display:flex;
+        gap: 25px;
+        .cartButton {
+            position: relative;
+            svg {
+                color: #000000;
+            }
+            span {
+                position: absolute;
+                top: -10px;
+                background: #1954EB;
+                display: flex;
+                right: -15px;
+                min-width: 11px;
+                height: 15px;
+                border-radius: 8px;
+                justify-content: center;
+                align-items: center;
+                justify-items: center;
+                font-size: 10px;
+                color: #ffffff;
+                padding: 2px 4px;
+            }
+        }
     }
 }
