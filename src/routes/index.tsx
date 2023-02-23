@@ -45,7 +45,7 @@ export default function Home() {
           <For each={productCollection()?.products}>
             {(product) => {
               return (
-                <A href={`/${product.url}`}>
+                <A href={`/listing${product.url}`}>
                   <img src={product.imageUrl} alt={product.name} />
                   {product.name}
                 </A>

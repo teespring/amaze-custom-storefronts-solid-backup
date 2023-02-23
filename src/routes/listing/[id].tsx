@@ -27,7 +27,7 @@ export default function ListingPage() {
         />
       </Show>
 
-      <h1>Hello {CapitalizeFirstLetter(params.id)}</h1>
+      <h1>Hello {CapitalizeFirstLetter(params.id)} Listing</h1>
     </main>
   );
 }

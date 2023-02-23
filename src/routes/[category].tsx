@@ -27,7 +27,7 @@ export default function CategoryPage() {
         />
       </Show>
 
-      <h1>Hello {CapitalizeFirstLetter(params.category)}</h1>
+      <h1>Hello {CapitalizeFirstLetter(params.category)} Collection</h1>
     </main>
   );
 }
