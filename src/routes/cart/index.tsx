@@ -4,7 +4,7 @@ import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
 
 export default function CartPage() {
-  const { theme, storeInfo } = useStoreInfo()!;
+  const { theme, storeInfo, cart } = useStoreInfo()!;
   return (
     <main>
       <Title>{`Cart - ${storeInfo()?.name} Store`}</Title>
@@ -19,7 +19,7 @@ export default function CartPage() {
         />
       </Show>
 
-      <h1>Hello Cart</h1>
+      <h1>Hello Cart {cart.total}</h1>
       <A href="/checkout">Checkout</A>
     </main>
   );

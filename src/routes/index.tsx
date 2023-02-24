@@ -13,7 +13,7 @@ const fetchProducts = async () =>
   ).json();
 
 export default function Home() {
-  const { slug, theme, storeInfo } = useStoreInfo()!;
+  const { slug, theme, storeInfo, cart } = useStoreInfo()!;
   const [productCollection] = createResource<ProductCollection>(fetchProducts, {
     initialValue: {},
   });
@@ -45,10 +45,17 @@ export default function Home() {
           <For each={productCollection()?.products}>
             {(product) => {
               return (
-                <A href={`/listing${product.url}`}>
+                <div>
                   <img src={product.imageUrl} alt={product.name} />
                   {product.name}
-                </A>
+                  {product.price}
+                  <button onClick={() => {cart.addProduct(product)}}>Add to Cart</button>
+                </div>
+                // <A href={`/listing${product.url}`}>
+                //   <img src={product.imageUrl} alt={product.name} />
+                //   {product.name}
+                //   <button onClick={() => {cart.addProduct(product)}}>Add to Cart</button>
+                // </A>
               );
             }}
           </For>

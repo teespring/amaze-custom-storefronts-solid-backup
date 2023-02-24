@@ -6,7 +6,7 @@ import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
 export default function MainHeader() {
   const location = useLocation();
-  const { theme, storeInfo, collections } = useStoreInfo()!;
+  const { theme, storeInfo, collections, cart } = useStoreInfo()!;
   return (
     <>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
@@ -61,6 +61,9 @@ export default function MainHeader() {
                     >
                       {collection.name}
                     </A>
+                    <div class={styles.subMenu}>
+                      <A href='/'>Boop</A>
+                    </div>
                   </div>
                 );
               }}
@@ -204,7 +207,9 @@ export default function MainHeader() {
                     : '#000000'
                 }`}
               />
-              <span>0</span>
+              <Show when={cart.count > 0}>
+                <span>{cart.count}</span>
+              </Show>
             </A>
           </div>
         </header>
