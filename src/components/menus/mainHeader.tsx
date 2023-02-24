@@ -61,9 +61,9 @@ export default function MainHeader() {
                     >
                       {collection.name}
                     </A>
-                    <div class={styles.subMenu}>
+                    {/* <div class={styles.subMenu}>
                       <A href='/'>Boop</A>
-                    </div>
+                    </div> */}
                   </div>
                 );
               }}
