@@ -14,20 +14,20 @@ const hrefArray = location()
   .href?.replace(`${location().protocol}//`, '')
   .split('.');
 const subDomain = hrefArray ? hrefArray[0] : 'www';
-const fetchTheme = async () =>
+const fetchTheme = async (slug: string) =>
   (
     await fetch(
-      `https://kxqd7cf966.execute-api.us-west-1.amazonaws.com/dev/themes?siteKey=browniebits`
+      `https://kxqd7cf966.execute-api.us-west-1.amazonaws.com/dev/themes?siteKey=${slug}`
     )
   ).json();
-const fetchStoreInfo = async () =>
+const fetchStoreInfo = async (slug: string) =>
   (
-    await fetch('https://commerce.teespring.com/v1/stores?slug=browniebits')
+    await fetch(`https://commerce.teespring.com/v1/stores?slug=${slug}`)
   ).json();
-const fetchCollections = async () =>
+const fetchCollections = async (slug: string) =>
   (
     await fetch(
-      'https://commerce.teespring.com/v1/stores/collections?slug=browniebits'
+      `https://commerce.teespring.com/v1/stores/collections?slug=${slug}`
     )
   ).json();
 
@@ -47,13 +47,21 @@ interface ContextInterface {
 const StoreContext = createContext<ContextInterface>();
 
 export function StoreProvider(props: { children: JSX.Element }) {
-  const [theme] = createResource<ThemeInfo>(fetchTheme, { initialValue: {} });
-  const [storeInfo] = createResource<StoreInfo>(fetchStoreInfo, {
-    initialValue: {},
-  });
-  const [collections] = createResource<Collections>(fetchCollections, {
-    initialValue: { storeId: 0, storeSlug: 'browniebits', collections: [] },
-  });
+  const [theme] = createResource<ThemeInfo, string>(
+    () => 'browniebits',
+    fetchTheme, {
+      initialValue: {},
+    });
+  const [storeInfo] = createResource<StoreInfo, string>(
+    () => 'browniebits',
+    fetchStoreInfo, {
+      initialValue: {},
+    });
+  const [collections] = createResource<Collections, string>(
+    () => 'browniebits',
+    fetchCollections, {
+      initialValue: {storeId: 0, storeSlug: 'browniebits', collections: []},
+    });
   const cart = createMutable({
     products: [] as Product[],
     get total() {

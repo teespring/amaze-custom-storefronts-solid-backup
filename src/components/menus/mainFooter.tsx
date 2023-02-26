@@ -10,14 +10,7 @@ export default function MainFooter() {
   return (
     <>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
-        <footer
-          class={`customFooter ${styles.footer}`}
-          style={`background:${
-            theme()?.styles
-              ? theme()?.styles?.footer.bgStyles.backgroundColor
-              : '#212020'
-          }`}
-        >
+        <footer class={`customFooter ${styles.footer}`}>
           <A href="/">
             Powered by Spring
           </A>

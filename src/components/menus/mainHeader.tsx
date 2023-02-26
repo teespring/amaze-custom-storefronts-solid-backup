@@ -10,29 +10,12 @@ export default function MainHeader() {
   return (
     <>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
-        <header
-          class={styles.header}
-          style={`background:${
-            theme()?.styles
-              ? theme()?.styles?.header.bgStyles.backgroundColor
-              : '#000000'
-          }`}
-        >
+        <header class={`customHeader ${styles.header}`}>
           <A href="/">
-            <div class={styles.logo}>
+            <div class={`customLogo ${styles.logo}`}>
               <Show
-                when={theme()?.content && theme()?.content?.header.logo != ''}
-                fallback={
-                  <h1
-                    style={`color:${
-                      theme()?.styles
-                        ? theme()?.styles?.header.textStyles.color
-                        : '#000000'
-                    }`}
-                  >
-                    {storeInfo()?.name}
-                  </h1>
-                }
+                when={theme()?.content && theme()?.content?.header.logo}
+                fallback={<h1>{storeInfo()?.name}</h1>}
               >
                 <img
                   src={FixAssetPathUrl(theme()?.content?.header.logo!)}
@@ -41,11 +24,11 @@ export default function MainHeader() {
               </Show>
             </div>
           </A>
-          <nav class={styles.nav}>
+          <nav class={`customNav ${styles.nav}`}>
             <For each={collections()?.collections}>
               {(collection) => {
                 return (
-                  <div class={styles.navItem}>
+                  <div class={`customNavItem ${styles.navItem}`}>
                     <A
                       class={`${
                         location.pathname == '/' + collection.slug
@@ -53,17 +36,27 @@ export default function MainHeader() {
                           : ''
                       }`}
                       href={`/${collection.slug}`}
-                      style={`color:${
-                        theme()?.styles
-                          ? theme()?.styles?.header.textStyles.color
-                          : '#000000'
-                      }`}
                     >
                       {collection.name}
                     </A>
-                    {/* <div class={styles.subMenu}>
-                      <A href='/'>Boop</A>
-                    </div> */}
+                    <Show when={collection.collections}>
+                    <div class={styles.subMenuBridge}/>
+                    <div class={styles.subMenu}>
+                      <For each={collection.collections}>
+                      {(collection) => {
+                        return <A class={`${
+                          location.pathname == '/' + collection.slug
+                            ? styles.selected
+                            : ''
+                        }`}
+                        href={`/${collection.slug}`}>
+                          {collection.name}
+                          </A>
+                      }}
+                      </For>
+                    </div>
+                    </Show>
+                    
                   </div>
                 );
               }}
@@ -72,117 +65,48 @@ export default function MainHeader() {
               when={theme()?.content?.footer.about.textContent}
               fallback={<></>}
             >
-              <div class={styles.navItem}>
+              <div class={`customNavItem ${styles.navItem}`}>
                 <A
                   class={`${
                     location.pathname == '/about' ? styles.selected : ''
                   }`}
                   href={`/about`}
-                  style={`color:${
-                    theme()?.styles
-                      ? theme()?.styles?.header.textStyles.color
-                      : '#000000'
-                  }`}
                 >
                   About
                 </A>
               </div>
             </Show>
           </nav>
-          <div class={styles.rightBar}>
+          <div class={`customRightBar ${styles.rightBar}`}>
             <Show when={theme()} fallback={<></>}>
               <For each={theme()?.brand?.socialMedia}>
                 {(social) => {
                   return (
-                    <div class={styles.socialLink}>
-                      <A
-                        href={social.url!}
-                        target="_blank"
-                        style={`color:${
-                          theme()?.styles
-                            ? theme()?.styles?.header.textStyles.color
-                            : '#000000'
-                        }`}
-                      >
+                    <div class={`customSocialLink`}>
+                      <A href={social.url!} target="_blank">
                         <Show when={social.id == 'youtube'} fallback={<></>}>
-                          <i
-                            class={`fa-brands fa-youtube`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-brands fa-youtube`} />
                         </Show>
                         <Show when={social.id == 'instagram'} fallback={<></>}>
-                          <i
-                            class={`fa-brands fa-instagram`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-brands fa-instagram`} />
                         </Show>
                         <Show when={social.id == 'website'} fallback={<></>}>
-                          <i
-                            class={`fa-solid fa-link`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-solid fa-link`} />
                         </Show>
                         <Show when={social.id == 'facebook'} fallback={<></>}>
-                          <i
-                            class={`fa-brands fa-facebook`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-brands fa-facebook`} />
                         </Show>
                         <Show when={social.id == 'twitter'} fallback={<></>}>
-                          <i
-                            class={`fa-brands fa-twitter`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-brands fa-twitter`} />
                         </Show>
                         <Show when={social.id == 'twitch'} fallback={<></>}>
-                          <i
-                            class={`fa-brands fa-twitch`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-brands fa-twitch`} />
                         </Show>
                         <Show when={social.id == 'discord'} fallback={<></>}>
-                          <i
-                            class={`fa-brands fa-discord`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-brands fa-discord`} />
                         </Show>
                         <Show when={social.id == 'tiktok'} fallback={<></>}>
-                          <i
-                            class={`fa-brands fa-tiktok`}
-                            style={`color:${
-                              theme()?.styles
-                                ? theme()?.styles?.header.textStyles.color
-                                : '#000000'
-                            }`}
-                          />
+                          <i class={`fa-brands fa-tiktok`} />
                         </Show>
                       </A>
                     </div>
@@ -190,23 +114,8 @@ export default function MainHeader() {
                 }}
               </For>
             </Show>
-            <A
-              href="/Cart"
-              class={styles.cartButton}
-              style={`color:${
-                theme()?.styles
-                  ? theme()?.styles?.header.textStyles.color
-                  : '#000000'
-              }`}
-            >
-              <i
-                class="fa-solid fa-cart-shopping"
-                style={`color:${
-                  theme()?.styles
-                    ? theme()?.styles?.header.textStyles.color
-                    : '#000000'
-                }`}
-              />
+            <A href="/Cart" class={`customCartIcon ${styles.cartIcon}`}>
+              <i class="fa-solid fa-cart-shopping" />
               <Show when={cart.count > 0}>
                 <span>{cart.count}</span>
               </Show>

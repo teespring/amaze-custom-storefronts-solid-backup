@@ -1,5 +1,5 @@
 import { createResource, Show, For } from 'solid-js';
-import { Title, Meta, Link, A } from 'solid-start';
+import { Title, Meta, Link, A, createRouteData, RouteDataArgs } from 'solid-start';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
 import { ProductCollection } from '~/lib/typeDefs';
@@ -8,7 +8,7 @@ import styles from './base.module.scss';
 const fetchProducts = async () =>
   (
     await fetch(
-      `https://commerce.teespring.com/v1/stores/products?slug=browniebits&currency=USD&region=USA`
+      `https://commerce.teespring.com/v1/stores/products?slug=browniebits&currency=USD&region=USA&per=150`
     )
   ).json();
 
@@ -18,7 +18,6 @@ export default function Home() {
     initialValue: {},
   });
 
-  console.log(slug);
   return (
     <main>
       <Title>{storeInfo()?.name}</Title>
