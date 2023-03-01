@@ -161,7 +161,9 @@ export interface ThemeInfo {
   storeKey?: string;
   userId?: number;
   meta?: Meta;
-  brand?: { socialMedia: {icon: string, id: string, label: string, url: string}[] };
+  brand?: {
+    socialMedia: { icon: string; id: string; label: string; url: string }[];
+  };
   layout?: { productList: { grid: string }; heroBanner: { type: number } };
   styles?: Styles;
 }
@@ -203,4 +205,76 @@ export interface ProductCollection {
   per_page?: number;
   facebook_pixel_html?: string;
   collection?: string;
+}
+
+interface ProductImage {
+  label?: string;
+  src?: string;
+  full?: string;
+  small?: string;
+  thumblarge?: string;
+  thumbsmall?: string;
+}
+
+export interface FullProduct {
+  listingId?: number;
+  title?: string;
+  description?: string;
+  googleProductCategory?: string;
+  url?: string;
+  itemGroupId?: string;
+  primaryProductSku?: string;
+  orders?: number;
+  gender?: string;
+  ageGroup?: string;
+  primaryProduct?: {
+    variationId?: number;
+    teespringId?: number;
+    productId?: number;
+    productType?: string;
+    productionEndDate?: string;
+    color?: string;
+    sizes?: {
+      id?: number;
+      label?: string;
+      price?: string;
+    }[];
+    availableSizes?: {
+      id?: number;
+      label?: string;
+      price?: string;
+    }[];
+    availableSizesWithId?: {
+      id?: number;
+      label?: string;
+      price?: string;
+    }[];
+    thumbnail?: {
+      primary?: string;
+      front?: { src?: string };
+      back?: { src?: string };
+    };
+    images?: ProductImage[];
+    attributes?: { hex?: string };
+    customOptions?: {};
+    price?: string;
+    basePrice?: string;
+    currency?: string;
+    inventoryCount?: number;
+  }[];
+  currency?: string;
+  listingThumbnails?: {
+    primary?: string;
+    front?: { src?: string };
+    back?: { src?: string };
+  };
+  images?: ProductImage[];
+  inventoryCount?: number;
+  primaryProductId?: number;
+  primaryProductType?: string;
+  activeStoreSlug?: string;
+  checkout_flow?: number;
+  fulfillmentDetails?: { productionTechniques?: string[] };
+  isPublic?: boolean;
+  visibility?: string;
 }

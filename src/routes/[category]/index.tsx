@@ -1,15 +1,11 @@
 import { createMemo, createResource, For, Show } from 'solid-js';
-import {
-  Title,
-  Meta,
-  RouteDataArgs,
-  useRouteData,
-} from 'solid-start';
+import { Title, Meta, RouteDataArgs, useRouteData } from 'solid-start';
+import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import NoCollection from '~/components/noCollection';
 import { useStoreInfo } from '~/lib/store';
 import { ProductCollection } from '~/lib/typeDefs';
-import styles from './base.module.scss';
+import styles from '../base.module.scss';
 
 const fetchProducts = async (category: string) =>
   (
@@ -32,11 +28,8 @@ export const routeData = ({ params }: RouteDataArgs) => {
 export default function CategoryPage() {
   const { theme, storeInfo, cart } = useStoreInfo()!;
   const productCollection = useRouteData<typeof routeData>();
-  createMemo(() => {
-    console.log(productCollection())
-  })
   return (
-    <Show when={productCollection().collection} fallback={<NoCollection/>}>
+    <Show when={productCollection().collection} fallback={<NoCollection />}>
       <main>
         <Title>
           {`${productCollection().collection} - ${storeInfo()?.name} Store`}
@@ -53,37 +46,22 @@ export default function CategoryPage() {
             content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
           />
         </Show>
-        <h1>{productCollection().collection} Collection</h1>
-        <Show
-          when={productCollection().count && productCollection().count! > 0}
-          fallback={<></>}
-        >
-          <div class={styles.productShelf}>
-            <For each={productCollection()?.products}>
-              {(product) => {
-                return (
-                  <div>
-                    <img src={product.imageUrl} alt={product.name} />
-                    {product.name}
-                    {product.price}
-                    <button
-                      onClick={() => {
-                        cart.addProduct(product);
-                      }}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                  // <A href={`/listing${product.url}`}>
-                  //   <img src={product.imageUrl} alt={product.name} />
-                  //   {product.name}
-                  //   <button onClick={() => {cart.addProduct(product)}}>Add to Cart</button>
-                  // </A>
-                );
-              }}
-            </For>
+        <div class={styles.collectionPage}>
+          <div class={styles.collectionTitle}>
+            <h2>{productCollection().collection}</h2>
           </div>
-        </Show>
+
+          <Show
+            when={productCollection().count && productCollection().count! > 0}
+            fallback={<></>}
+          >
+            <div class={styles.productShelf}>
+              <For each={productCollection()?.products}>
+                {(product) => <ProductCard product={product} />}
+              </For>
+            </div>
+          </Show>
+        </div>
       </main>
     </Show>
   );

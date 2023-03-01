@@ -1,5 +1,5 @@
 import styles from './mainHeader.module.scss';
-import { Show, For } from 'solid-js';
+import { Show, For, Switch, Match } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 import { useStoreInfo } from '../../lib/store';
 import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
@@ -84,30 +84,32 @@ export default function MainHeader() {
                   return (
                     <div class={`customSocialLink`}>
                       <A href={social.url!} target="_blank">
-                        <Show when={social.id == 'youtube'} fallback={<></>}>
+                        <Switch>
+                          <Match when={social.id == 'youtube'}>
                           <i class={`fa-brands fa-youtube`} />
-                        </Show>
-                        <Show when={social.id == 'instagram'} fallback={<></>}>
+                          </Match>
+                          <Match when={social.id == 'instagram'}>
                           <i class={`fa-brands fa-instagram`} />
-                        </Show>
-                        <Show when={social.id == 'website'} fallback={<></>}>
+                          </Match>
+                          <Match when={social.id == 'website'}>
                           <i class={`fa-solid fa-link`} />
-                        </Show>
-                        <Show when={social.id == 'facebook'} fallback={<></>}>
+                          </Match>
+                          <Match when={social.id == 'facebook'}>
                           <i class={`fa-brands fa-facebook`} />
-                        </Show>
-                        <Show when={social.id == 'twitter'} fallback={<></>}>
+                          </Match>
+                          <Match when={social.id == 'twitter'}>
                           <i class={`fa-brands fa-twitter`} />
-                        </Show>
-                        <Show when={social.id == 'twitch'} fallback={<></>}>
+                          </Match>
+                          <Match when={social.id == 'twitch'}>
                           <i class={`fa-brands fa-twitch`} />
-                        </Show>
-                        <Show when={social.id == 'discord'} fallback={<></>}>
+                          </Match>
+                          <Match when={social.id == 'discord'}>
                           <i class={`fa-brands fa-discord`} />
-                        </Show>
-                        <Show when={social.id == 'tiktok'} fallback={<></>}>
+                          </Match>
+                          <Match when={social.id == 'tiktok'}>
                           <i class={`fa-brands fa-tiktok`} />
-                        </Show>
+                          </Match>
+                        </Switch>
                       </A>
                     </div>
                   );

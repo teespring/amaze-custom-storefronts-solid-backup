@@ -1,5 +1,6 @@
 import { createResource, Show, For } from 'solid-js';
 import { Title, Meta, Link, A, createRouteData, RouteDataArgs } from 'solid-start';
+import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
 import { ProductCollection } from '~/lib/typeDefs';
@@ -40,23 +41,12 @@ export default function Home() {
         when={productCollection().count && productCollection().count! > 0}
         fallback={<></>}
       >
+        <div class={styles.collectionTitle}>
+            <h2>Featured Products</h2>
+          </div>
         <div class={styles.productShelf}>
           <For each={productCollection()?.products}>
-            {(product) => {
-              return (
-                <div>
-                  <img src={product.imageUrl} alt={product.name} />
-                  {product.name}
-                  {product.price}
-                  <button onClick={() => {cart.addProduct(product)}}>Add to Cart</button>
-                </div>
-                // <A href={`/listing${product.url}`}>
-                //   <img src={product.imageUrl} alt={product.name} />
-                //   {product.name}
-                //   <button onClick={() => {cart.addProduct(product)}}>Add to Cart</button>
-                // </A>
-              );
-            }}
+            {(product) => <ProductCard product={product} />}
           </For>
         </div>
       </Show>
