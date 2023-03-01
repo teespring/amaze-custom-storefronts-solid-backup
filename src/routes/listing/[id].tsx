@@ -58,12 +58,18 @@ export default function ListingPage() {
   return (
     <main>
       <Title>{`${product().title} - ${storeInfo()?.name} Store`}</Title>
+      <Meta property="og:site_name" content={storeInfo()?.name} />
       <Meta
         property="og:title"
         content={`${product().title} - ${storeInfo()?.name} Store`}
       />
+      <Meta
+        property="twitter:title"
+        content={`${product().title} - ${storeInfo()?.name} Store`}
+      />
       <Show when={product().images} fallback={<></>}>
         <Meta property="og:image" content={product().images?.at(0)?.src!} />
+        <Meta property="twitter:image" content={product().images?.at(0)?.src!} />
       </Show>
 
       <h1>{product().title}</h1>

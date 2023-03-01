@@ -40,9 +40,20 @@ export default function CategoryPage() {
             storeInfo()?.name
           } Store`}
         />
+        <Meta
+          property="twitter:title"
+          content={`${productCollection().collection} - ${
+            storeInfo()?.name
+          } Store`}
+        />
+        <Meta property="og:site_name" content={storeInfo()?.name} />
         <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
           <Meta
             property="og:image"
+            content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+          />
+          <Meta
+            property="twitter:image"
             content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
           />
         </Show>

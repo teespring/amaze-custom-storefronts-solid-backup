@@ -1,5 +1,12 @@
 import { createResource, Show, For } from 'solid-js';
-import { Title, Meta, Link, A, createRouteData, RouteDataArgs } from 'solid-start';
+import {
+  Title,
+  Meta,
+  Link,
+  A,
+  createRouteData,
+  RouteDataArgs,
+} from 'solid-start';
 import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
@@ -23,9 +30,15 @@ export default function Home() {
     <main>
       <Title>{storeInfo()?.name}</Title>
       <Meta property="og:title" content={storeInfo()?.name} />
+      <Meta property="twitter:title" content={storeInfo()?.name} />
+      <Meta property="og:site_name" content={storeInfo()?.name} />
       <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
         <Meta
           property="og:image"
+          content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+        />
+        <Meta
+          property="twitter:image"
           content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
         />
       </Show>
@@ -42,8 +55,8 @@ export default function Home() {
         fallback={<></>}
       >
         <div class={styles.collectionTitle}>
-            <h2>Featured Products</h2>
-          </div>
+          <h2>Featured Products</h2>
+        </div>
         <div class={styles.productShelf}>
           <For each={productCollection()?.products}>
             {(product) => <ProductCard product={product} />}

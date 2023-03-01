@@ -31,17 +31,22 @@ export default function Root() {
         <Meta property="og:locale" content="en_US" />
         <Meta property="og:type" content="website" />
         <Meta property="og:title" content="Home - Amaze" />
+        
+        
         <Meta
           property="og:description"
           content="Amaze has everything you need to create beautiful experiences that bring your content to life, increase engagement, and boost sales."
         />
         <Meta property="og:url" content="https://amaze.co/" />
-        <Meta property="og:site_name" content="Amazing" />
+        <Meta property="og:site_name" content="Amaze" />
         <Meta
           property="og:image"
           content={`https://og-image.vercel.app/boop.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
+        
         <Meta name="twitter:card" content="summary_large_image" />
+        <Meta property="twitter:title" content="Home - Amaze" />
+        <Meta name="twitter:image" content="https://og-image.vercel.app/boop.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg" />
         <Meta
           name="robots"
           content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"

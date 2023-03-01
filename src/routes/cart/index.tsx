@@ -8,13 +8,16 @@ export default function CartPage() {
   return (
     <main>
       <Title>{`Cart - ${storeInfo()?.name} Store`}</Title>
-      <Meta
-        property="og:title"
-        content={`Cart - ${storeInfo()?.name} Store`}
-      />
+      <Meta property="og:title" content={`Cart - ${storeInfo()?.name} Store`} />
+      <Meta property="twitter:title" content={`Cart - ${storeInfo()?.name} Store`} />
+      <Meta property="og:site_name" content={storeInfo()?.name} />
       <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
         <Meta
           property="og:image"
+          content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+        />
+        <Meta
+          property="twitter:image"
           content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
         />
       </Show>
