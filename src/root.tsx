@@ -38,10 +38,6 @@ export default function Root() {
         <Meta property="og:url" content="https://amaze.co/" />
         <Meta property="og:site_name" content="Amaze" />
         <Meta
-          property="article:modified_time"
-          content="2022-10-18T01:49:37+00:00"
-        />
-        <Meta
           property="og:image"
           content={`https://og-image.vercel.app/boop.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
