@@ -31,7 +31,7 @@ export default function ProductCard(props: { product?: Product }) {
           </A>
           <button
             onClick={() => {
-              cart.addProduct(props.product);
+              cart.addProduct(props.product!);
             }}
             class={styles.quickAddButton}
           >
