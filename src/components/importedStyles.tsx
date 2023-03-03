@@ -8,7 +8,7 @@ export default function ImportedStyles() {
     <Style>{`
         body {
           background: ${theme()?.styles?.footer.bgStyles.backgroundColor};
-          overflow: ${searchOpen() ? 'hidden' : 'scroll'};
+          overflow-y: ${searchOpen() ? 'hidden !important' : 'scroll'};
         }
 
         .customFooter {
