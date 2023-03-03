@@ -41,15 +41,15 @@ export default function ProductCard(props: { product?: Product }) {
       </Show>
       <Show when={!props.product}>
         <div class={styles.productCard}>
-          
+            <div class={styles.noProductImage}></div>
             
             <div class={styles.productDetails}>
               <div class={styles.info}>
-                <p class={styles.name}>{props.product?.name}</p>
-                <p class={styles.type}>{props.product?.productName}</p>
+                <p class={styles.name}>Product Name</p>
+                <p class={styles.type}>Product Type</p>
               </div>
               <div class={styles.price}>
-                <p>{props.product?.price}</p>
+                <p>$0.00</p>
               </div>
             </div>
         </div>
