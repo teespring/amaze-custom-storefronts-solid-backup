@@ -2,6 +2,8 @@
 .aboutPage {
   display: flex;
   flex-wrap: wrap;
+  padding: 60px 30px 30px;
+  gap: 30px;
   .left {
     flex:1;
   }
@@ -13,7 +15,7 @@
   }
   }
   .section {
-    padding: 16px 30px 30px;
+    padding: 16px 0 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

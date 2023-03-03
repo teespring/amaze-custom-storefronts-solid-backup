@@ -26,6 +26,10 @@
     margin-top: 0;
     margin-bottom: 0.4em;
   }
+  @include desktop {
+    min-height: 500px;
+    padding: 6rem 0px;
+  }
   @include tablet {
     min-height: 400px;
     padding: 6rem 0px;

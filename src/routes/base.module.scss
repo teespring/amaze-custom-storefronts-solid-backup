@@ -11,6 +11,9 @@
     img {
         width: 100%;
     }
+    @include desktop {
+        grid-template-columns: repeat(4, 1fr);
+    }
     @include tablet {
         grid-template-columns: repeat(3, 1fr);
     }
