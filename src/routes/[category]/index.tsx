@@ -1,7 +1,8 @@
-import { createMemo, createResource, For, Show } from 'solid-js';
+import { createMemo, createResource, For, Show, Suspense } from 'solid-js';
 import { Title, Meta, RouteDataArgs, useRouteData } from 'solid-start';
 import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
+import CollectionLoader from '~/components/loaders/CollectionLoader';
 import NoCollection from '~/components/noCollection';
 import { useStoreInfo } from '~/lib/store';
 import { ProductCollection } from '~/lib/typeDefs';
@@ -29,51 +30,53 @@ export default function CategoryPage() {
   const { theme, storeInfo, cart } = useStoreInfo()!;
   const productCollection = useRouteData<typeof routeData>();
   return (
-    <Show when={productCollection().collection} fallback={<NoCollection />}>
-      <main>
-        <Title>
-          {`${productCollection().collection} - ${storeInfo()?.name} Store`}
-        </Title>
-        <Meta
-          property="og:title"
-          content={`${productCollection().collection} - ${
-            storeInfo()?.name
-          } Store`}
-        />
-        <Meta
-          property="twitter:title"
-          content={`${productCollection().collection} - ${
-            storeInfo()?.name
-          } Store`}
-        />
-        <Meta property="og:site_name" content={storeInfo()?.name} />
-        <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
+    <Suspense fallback={<CollectionLoader />}>
+      <Show when={productCollection().collection} fallback={<NoCollection />}>
+        <main>
+          <Title>
+            {`${productCollection().collection} - ${storeInfo()?.name} Store`}
+          </Title>
           <Meta
-            property="og:image"
-            content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+            property="og:title"
+            content={`${productCollection().collection} - ${
+              storeInfo()?.name
+            } Store`}
           />
           <Meta
-            property="twitter:image"
-            content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+            property="twitter:title"
+            content={`${productCollection().collection} - ${
+              storeInfo()?.name
+            } Store`}
           />
-        </Show>
-        <div class={styles.collectionPage}>
-          <div class={styles.collectionTitle}>
-            <h2>{productCollection().collection}</h2>
-          </div>
-
-          <Show
-            when={productCollection().count && productCollection().count! > 0}
-            fallback={<></>}
-          >
-            <div class={styles.productShelf}>
-              <For each={productCollection()?.products}>
-                {(product) => <ProductCard product={product} />}
-              </For>
-            </div>
+          <Meta property="og:site_name" content={storeInfo()?.name} />
+          <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
+            <Meta
+              property="og:image"
+              content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+            />
+            <Meta
+              property="twitter:image"
+              content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+            />
           </Show>
-        </div>
-      </main>
-    </Show>
+          <div class={styles.collectionPage}>
+            <div class={styles.collectionTitle}>
+              <h2>{productCollection().collection}</h2>
+            </div>
+
+            <Show
+              when={productCollection().count && productCollection().count! > 0}
+              fallback={<></>}
+            >
+              <div class={styles.productShelf}>
+                <For each={productCollection()?.products}>
+                  {(product) => <ProductCard product={product} />}
+                </For>
+              </div>
+            </Show>
+          </div>
+        </main>
+      </Show>
+    </Suspense>
   );
 }

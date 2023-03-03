@@ -82,7 +82,7 @@ export default function MainHeader() {
               <For each={theme()?.brand?.socialMedia}>
                 {(social) => {
                   return (
-                    <div class={`customSocialLink`}>
+                    <div class={`customSocialLink ${styles.socialLink}`}>
                       <A href={social.url!} target="_blank">
                         <Switch>
                           <Match when={social.id == 'youtube'}>

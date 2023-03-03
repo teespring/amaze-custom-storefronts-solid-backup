@@ -1,4 +1,4 @@
-import { createMemo, createResource, Show } from 'solid-js';
+import { createMemo, createResource, Show, Suspense } from 'solid-js';
 import {
   Title,
   Meta,
@@ -26,7 +26,6 @@ const fetchProduct = async (props: FetchObject) => {
     ? `&country_code=${props.countryCode}`
     : '';
   const productID = props.productID ? `&productId=${props.productID}` : '';
-  console.log(props.slug, currency, region, countryCode, productID);
   return (
     await fetch(
       `https://teespring.com/api/v1/listings?slug=${props.slug}${currency}${region}${countryCode}${productID}`
@@ -56,23 +55,28 @@ export default function ListingPage() {
   const product = useRouteData<typeof routeData>();
 
   return (
-    <main>
-      <Title>{`${product().title} - ${storeInfo()?.name} Store`}</Title>
-      <Meta property="og:site_name" content={storeInfo()?.name} />
-      <Meta
-        property="og:title"
-        content={`${product().title} - ${storeInfo()?.name} Store`}
-      />
-      <Meta
-        property="twitter:title"
-        content={`${product().title} - ${storeInfo()?.name} Store`}
-      />
-      <Show when={product().images} fallback={<></>}>
-        <Meta property="og:image" content={product().images?.at(0)?.src!} />
-        <Meta property="twitter:image" content={product().images?.at(0)?.src!} />
-      </Show>
+    <Suspense fallback={<pre>Loading</pre>}>
+      <main>
+        <Title>{`${product().title} - ${storeInfo()?.name} Store`}</Title>
+        <Meta property="og:site_name" content={storeInfo()?.name} />
+        <Meta
+          property="og:title"
+          content={`${product().title} - ${storeInfo()?.name} Store`}
+        />
+        <Meta
+          property="twitter:title"
+          content={`${product().title} - ${storeInfo()?.name} Store`}
+        />
+        <Show when={product().images} fallback={<></>}>
+          <Meta property="og:image" content={product().images?.at(0)?.src!} />
+          <Meta
+            property="twitter:image"
+            content={product().images?.at(0)?.src!}
+          />
+        </Show>
 
-      <h1>{product().title}</h1>
-    </main>
+        <h1>{product().title}</h1>
+      </main>
+    </Suspense>
   );
 }

@@ -18,10 +18,12 @@
   "dependencies": {
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.7.0",
+    "@stitches/core": "^1.2.8",
     "dotenv": "^16.0.3",
     "sass": "^1.58.3",
     "solid-js": "^1.6.11",
     "solid-start": "^0.2.21",
+    "solid-transition-group": "^0.0.13",
     "solidjs-use": "^1.2.0",
     "undici": "^5.15.1"
   },

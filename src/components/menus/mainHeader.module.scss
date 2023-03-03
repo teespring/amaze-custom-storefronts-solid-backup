@@ -1,3 +1,5 @@
+@import "~/variables";
+
 .header {
     height: 64px;
     width: 100%;
@@ -74,6 +76,13 @@
                 display: flex;
                } 
             }
+            @include phone {
+                display:none;
+            }
+            @include tablet {
+                display: none;
+            }
+            
         }
     }
     .rightBar {
@@ -81,6 +90,14 @@
         border-left: 1px solid #d9d9d9;
         display:flex;
         gap: 25px;
+        .socialLink {
+            @include tablet {
+                display: none;
+            }
+            @include phone {
+                display:none;
+            }
+        }
         .cartIcon {
             position: relative;
             span {

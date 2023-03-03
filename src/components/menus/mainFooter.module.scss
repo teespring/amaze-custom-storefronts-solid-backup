@@ -4,7 +4,20 @@
     width: 100%;
     padding: 30px;
     gap: 15px;
+    flex-wrap: wrap;
     a {
         text-decoration: none;
+        word-wrap: break-word;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        span {
+            display:inline-block;
+            padding-right: 5px;
+        }
+        svg {
+            display: inline-block;
+            width:79px;
+        }
     }
 }

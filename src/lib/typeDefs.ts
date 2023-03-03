@@ -39,7 +39,7 @@ interface Footer {
   textStyles: { color: string };
 }
 
-interface HeroBanner {
+interface HeroBannerStyles {
   bgStyles: { backgroundColor: string };
   ctaBtnStyles: { backgroundColor: string; color: string };
   template: number;
@@ -71,7 +71,7 @@ interface Styles {
   fonts: string[];
   footer: Footer;
   header: Header;
-  heroBanner: HeroBanner;
+  heroBanner: HeroBannerStyles;
   linkStyles: { color: string; textDecoration: string };
   listing: { bgStyles: object; textStyles: object };
   modal: { overlayColor: string; closeButtonColor: string };
@@ -117,6 +117,16 @@ export interface StoreInfo {
   promoCodes?: { code?: string; type: string; value: number | object }[];
 }
 
+export interface HeroBannerContent {
+  body?: string;
+  containerBg?: string;
+  ctaLink?: string;
+  ctaOpenInNewWindow?: boolean;
+  ctaText?: string;
+  subtitle?: string;
+  title?: string;
+}
+
 interface Content {
   about: { aboutText: { id: string; text: string }[] };
   categories: string[];
@@ -134,15 +144,7 @@ interface Content {
     showCategories: boolean;
     showSocialIcons: boolean;
   };
-  heroBanner: {
-    body: string;
-    containerBg: string;
-    ctaLink: string;
-    ctaOpenInNewWindow: boolean;
-    ctaText: string;
-    subtitle: string;
-    title: string;
-  };
+  heroBanner: HeroBannerContent;
 }
 interface Meta {
   logoHeight: string;

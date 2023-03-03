@@ -9,6 +9,7 @@ import {
 } from 'solid-start';
 import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
+import HeroBanner from '~/components/heroBanner';
 import { useStoreInfo } from '~/lib/store';
 import { ProductCollection } from '~/lib/typeDefs';
 import styles from './base.module.scss';
@@ -42,25 +43,31 @@ export default function Home() {
           content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
         />
       </Show>
-      <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
-        <div class="hero">
-          <img
-            src={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
-            alt="Hero Banner"
-          />
-        </div>
+      <Show
+        when={
+          theme()?.content?.heroBanner.containerBg ||
+          theme()?.content?.heroBanner.body ||
+          theme()?.content?.heroBanner.title ||
+          theme()?.content?.heroBanner.subtitle ||
+          theme()?.content?.heroBanner.ctaText
+        }
+        fallback={<></>}
+      >
+        <HeroBanner bannerContent={theme()?.content?.heroBanner} />
       </Show>
       <Show
         when={productCollection().count && productCollection().count! > 0}
         fallback={<></>}
       >
-        <div class={styles.collectionTitle}>
-          <h2>Featured Products</h2>
-        </div>
-        <div class={styles.productShelf}>
-          <For each={productCollection()?.products}>
-            {(product) => <ProductCard product={product} />}
-          </For>
+        <div class={styles.collectionPage}>
+          <div class={styles.collectionTitle}>
+            <h2>Featured Products</h2>
+          </div>
+          <div class={styles.productShelf}>
+            <For each={productCollection()?.products}>
+              {(product) => <ProductCard product={product} />}
+            </For>
+          </div>
         </div>
       </Show>
     </main>
