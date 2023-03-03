@@ -6,7 +6,7 @@ import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
 export default function MainHeader() {
   const location = useLocation();
-  const { theme, storeInfo, collections, cart } = useStoreInfo()!;
+  const { theme, storeInfo, collections, cart, setSearchOpen } = useStoreInfo()!;
   return (
     <>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
@@ -116,6 +116,9 @@ export default function MainHeader() {
                 }}
               </For>
             </Show>
+            <button class={`customSearchButton ${styles.searchButton}`} onclick={() => setSearchOpen(prev => !prev)}>
+              <i class={`fa-solid fa-search`}  />
+            </button>
             <A href="/Cart" class={`customCartIcon ${styles.cartIcon}`}>
               <i class="fa-solid fa-cart-shopping" />
               <Show when={cart.count > 0}>

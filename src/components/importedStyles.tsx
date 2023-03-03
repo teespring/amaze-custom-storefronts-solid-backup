@@ -3,11 +3,12 @@ import { useStoreInfo } from '~/lib/store';
 import FixAssetPathUrl from './helpers/FixAssetPathUrl';
 
 export default function ImportedStyles() {
-  const { theme, storeInfo, collections } = useStoreInfo()!;
+  const { theme, storeInfo, collections, searchOpen } = useStoreInfo()!;
   return (
     <Style>{`
         body {
           background: ${theme()?.styles?.footer.bgStyles.backgroundColor};
+          overflow: ${searchOpen() ? 'hidden' : 'scroll'};
         }
 
         .customFooter {
@@ -31,6 +32,9 @@ export default function ImportedStyles() {
           color: ${theme()?.styles?.header.textStyles.color};
         }
         .customHeader .customRightBar .customSocialLink svg {
+          color: ${theme()?.styles?.header.textStyles.color};
+        }
+        .customHeader .customRightBar .customSearchButton svg {
           color: ${theme()?.styles?.header.textStyles.color};
         }
 

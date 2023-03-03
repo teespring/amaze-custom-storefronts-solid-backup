@@ -45,6 +45,10 @@ p {
   color: #000000;
 }
 
+.contentArea {
+  position: relative;
+}
+
 @media (min-width: 480px) {
   h1 {
     max-width: none;

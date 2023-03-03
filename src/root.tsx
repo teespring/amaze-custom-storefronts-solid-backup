@@ -19,6 +19,7 @@ import { StoreProvider } from '../src/lib/store';
 import './root.scss';
 import MainFooter from './components/menus/mainFooter';
 import ImportedStyles from './components/importedStyles';
+import SearchSlideout from './components/searchSlideout';
 
 export default function Root() {
   return (
@@ -60,14 +61,15 @@ export default function Root() {
       <Body>
         <Suspense>
           <ErrorBoundary>
-              <StoreProvider>
+            <StoreProvider>
                 <MainHeader />
                 <Routes>
                   <FileRoutes />
                 </Routes>
                 <MainFooter />
                 <ImportedStyles />
-              </StoreProvider>
+                <SearchSlideout />
+            </StoreProvider>
           </ErrorBoundary>
         </Suspense>
         <Scripts />

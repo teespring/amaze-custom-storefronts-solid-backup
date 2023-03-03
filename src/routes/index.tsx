@@ -1,31 +1,16 @@
-import { createResource, Show, For } from 'solid-js';
+import { Show, For } from 'solid-js';
 import {
   Title,
   Meta,
-  Link,
-  A,
-  createRouteData,
-  RouteDataArgs,
 } from 'solid-start';
 import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import HeroBanner from '~/components/heroBanner';
 import { useStoreInfo } from '~/lib/store';
-import { ProductCollection } from '~/lib/typeDefs';
 import styles from './base.module.scss';
 
-const fetchProducts = async () =>
-  (
-    await fetch(
-      `https://commerce.teespring.com/v1/stores/products?slug=browniebits&currency=USD&region=USA&per=150`
-    )
-  ).json();
-
 export default function Home() {
-  const { slug, theme, storeInfo, cart } = useStoreInfo()!;
-  const [productCollection] = createResource<ProductCollection>(fetchProducts, {
-    initialValue: {},
-  });
+  const { theme, storeInfo, products } = useStoreInfo()!;
 
   return (
     <main>
@@ -56,7 +41,7 @@ export default function Home() {
         <HeroBanner bannerContent={theme()?.content?.heroBanner} />
       </Show>
       <Show
-        when={productCollection().count && productCollection().count! > 0}
+        when={products()?.count && products()?.count! > 0}
         fallback={<></>}
       >
         <div class={styles.collectionPage}>
@@ -64,7 +49,7 @@ export default function Home() {
             <h2>Featured Products</h2>
           </div>
           <div class={styles.productShelf}>
-            <For each={productCollection()?.products}>
+            <For each={products()?.products}>
               {(product) => <ProductCard product={product} />}
             </For>
           </div>

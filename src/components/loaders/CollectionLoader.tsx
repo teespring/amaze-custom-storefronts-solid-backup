@@ -1,4 +1,3 @@
-import { createMemo, createResource, For, Show, Suspense } from 'solid-js';
 import styles from '../../routes/base.module.scss';
 import ProductCard from '../cards/productCard';
 

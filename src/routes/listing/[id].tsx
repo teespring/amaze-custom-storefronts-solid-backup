@@ -9,6 +9,7 @@ import {
 } from 'solid-start';
 import CapitalizeFirstLetter from '~/components/helpers/CapitalizeFirstLets';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
+import ProductLoader from '~/components/loaders/ProductLoader';
 import { useStoreInfo } from '~/lib/store';
 import { FullProduct } from '~/lib/typeDefs';
 
@@ -55,28 +56,29 @@ export default function ListingPage() {
   const product = useRouteData<typeof routeData>();
 
   return (
-    <Suspense fallback={<pre>Loading</pre>}>
-      <main>
-        <Title>{`${product().title} - ${storeInfo()?.name} Store`}</Title>
-        <Meta property="og:site_name" content={storeInfo()?.name} />
-        <Meta
-          property="og:title"
-          content={`${product().title} - ${storeInfo()?.name} Store`}
-        />
-        <Meta
-          property="twitter:title"
-          content={`${product().title} - ${storeInfo()?.name} Store`}
-        />
-        <Show when={product().images} fallback={<></>}>
-          <Meta property="og:image" content={product().images?.at(0)?.src!} />
-          <Meta
-            property="twitter:image"
-            content={product().images?.at(0)?.src!}
-          />
-        </Show>
+    <ProductLoader />
+    // <Suspense fallback={<pre>Loading</pre>}>
+    //   <main>
+    //     <Title>{`${product().title} - ${storeInfo()?.name} Store`}</Title>
+    //     <Meta property="og:site_name" content={storeInfo()?.name} />
+    //     <Meta
+    //       property="og:title"
+    //       content={`${product().title} - ${storeInfo()?.name} Store`}
+    //     />
+    //     <Meta
+    //       property="twitter:title"
+    //       content={`${product().title} - ${storeInfo()?.name} Store`}
+    //     />
+    //     <Show when={product().images} fallback={<></>}>
+    //       <Meta property="og:image" content={product().images?.at(0)?.src!} />
+    //       <Meta
+    //         property="twitter:image"
+    //         content={product().images?.at(0)?.src!}
+    //       />
+    //     </Show>
 
-        <h1>{product().title}</h1>
-      </main>
-    </Suspense>
+    //     <h1>{product().title}</h1>
+    //   </main>
+    // </Suspense>
   );
 }

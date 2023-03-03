@@ -4,10 +4,14 @@ import {
   useContext,
   Resource,
   JSX,
+  createSignal,
+  createEffect,
+  Accessor,
+  Setter,
 } from 'solid-js';
 import { createMutable } from 'solid-js/store';
 import { useBrowserLocation } from 'solidjs-use';
-import { ThemeInfo, StoreInfo, Collections, Product } from './typeDefs';
+import { ThemeInfo, StoreInfo, Collections, Product, ProductCollection } from './typeDefs';
 
 const location = useBrowserLocation();
 const hrefArray = location()
@@ -21,13 +25,18 @@ const fetchTheme = async (slug: string) =>
     )
   ).json();
 const fetchStoreInfo = async (slug: string) =>
-  (
-    await fetch(`https://commerce.teespring.com/v1/stores?slug=${slug}`)
-  ).json();
+  (await fetch(`https://commerce.teespring.com/v1/stores?slug=${slug}`)).json();
 const fetchCollections = async (slug: string) =>
   (
     await fetch(
       `https://commerce.teespring.com/v1/stores/collections?slug=${slug}`
+    )
+  ).json();
+
+const fetchProducts = async (numProducts: string) =>
+  (
+    await fetch(
+      `https://commerce.teespring.com/v1/stores/products?slug=browniebits&currency=USD&region=USA&per=${numProducts}`
     )
   ).json();
 
@@ -36,6 +45,9 @@ interface ContextInterface {
   theme: Resource<ThemeInfo>;
   storeInfo: Resource<StoreInfo>;
   collections: Resource<Collections>;
+  products: Resource<ProductCollection>;
+  searchOpen: Accessor<boolean>;
+  setSearchOpen: Setter<boolean>;
   cart: {
     products: Product[];
     readonly total: any;
@@ -47,26 +59,43 @@ interface ContextInterface {
 const StoreContext = createContext<ContextInterface>();
 
 export function StoreProvider(props: { children: JSX.Element }) {
+  const [searchOpen, setSearchOpen] = createSignal(false);
+
   const [theme] = createResource<ThemeInfo, string>(
     () => 'browniebits',
-    fetchTheme, {
+    fetchTheme,
+    {
       initialValue: {},
-    });
+    }
+  );
   const [storeInfo] = createResource<StoreInfo, string>(
     () => 'browniebits',
-    fetchStoreInfo, {
+    fetchStoreInfo,
+    {
       initialValue: {},
-    });
+    }
+  );
   const [collections] = createResource<Collections, string>(
     () => 'browniebits',
-    fetchCollections, {
-      initialValue: {storeId: 0, storeSlug: 'browniebits', collections: []},
-    });
+    fetchCollections,
+    {
+      initialValue: { storeId: 0, storeSlug: 'browniebits', collections: [] },
+    }
+  );
+  const [products] = createResource<ProductCollection, string>(
+    () => '1000',
+    fetchProducts,
+    {
+      initialValue: {},
+    }
+  );
+
   const cart = createMutable({
     products: [] as Product[],
     get total() {
       return this.products.reduce(
-        (total: number, product: Product) => total + Number(product.price?.replace('$', '')),
+        (total: number, product: Product) =>
+          total + Number(product.price?.replace('$', '')),
         0
       );
     },
@@ -75,11 +104,11 @@ export function StoreProvider(props: { children: JSX.Element }) {
     },
     addProduct(product: Product) {
       this.products.push(product);
-    //   window.localStorage.setItem('cart', JSON.stringify(this.products));
+      //   window.localStorage.setItem('cart', JSON.stringify(this.products));
     },
     clear() {
       this.products = [];
-    //   window.localStorage.setItem('cart', JSON.stringify(this.products));
+      //   window.localStorage.setItem('cart', JSON.stringify(this.products));
     },
   });
   const value: ContextInterface = {
@@ -88,6 +117,9 @@ export function StoreProvider(props: { children: JSX.Element }) {
     storeInfo: storeInfo,
     collections: collections,
     cart: cart,
+    products: products,
+    searchOpen: searchOpen,
+    setSearchOpen: setSearchOpen
   };
   return (
     <StoreContext.Provider value={value}>
