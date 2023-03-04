@@ -100,6 +100,7 @@ export function StoreProvider(props: { children: JSX.Element }) {
 
   onMount(() => {
     setCartCount(getInitialCartTotal(cartStorage));
+    myCart.cart = cartStorage;
   });
 
   const myCart = createMutable({
