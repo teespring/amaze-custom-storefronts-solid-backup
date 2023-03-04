@@ -8,6 +8,7 @@ import {
   createEffect,
   Accessor,
   Setter,
+  onMount,
 } from 'solid-js';
 import { createMutable } from 'solid-js/store';
 import { useBrowserLocation, useStorage } from 'solidjs-use';
@@ -28,8 +29,9 @@ const subDomain = hrefArray ? hrefArray[0] : 'www';
 
 let cartStorage = { items: {}, region: 'USA' } as Cart;
 if (!isServer) {
-  cartStorage = JSON.parse(localStorage.getItem('browniebits-cart')!);
-  console.log('GotCartStorage', cartStorage);
+  cartStorage =
+    JSON.parse(localStorage.getItem('browniebits-cart')!) ||
+    ({ items: {}, region: 'USA' } as Cart);
 }
 const getInitialCartTotal = (cartFromStorage: Cart) => {
   return Object.keys(cartFromStorage.items).reduce(
@@ -128,11 +130,13 @@ export function StoreProvider(props: { children: JSX.Element }) {
     }
   );
 
-  const [cartCount, setCartCount] = createSignal(
-    getInitialCartTotal(cartStorage)
-  );
+  const [cartCount, setCartCount] = createSignal(0);
   const [searchOpen, setSearchOpen] = createSignal(false);
 
+  onMount(() => {
+    setCartCount(getInitialCartTotal(cartStorage));
+  });
+  
   const myCart = createMutable({
     cart: cartStorage || ({ items: {}, region: 'USA' } as Cart),
     addProduct(addCartItem: AddCartItem) {
