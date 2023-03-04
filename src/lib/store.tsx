@@ -98,10 +98,7 @@ export function StoreProvider(props: { children: JSX.Element }) {
   const [cartCount, setCartCount] = createSignal(0);
   const [searchOpen, setSearchOpen] = createSignal(false);
 
-  onMount(() => {
-    setCartCount(getInitialCartTotal(cartStorage));
-    myCart.cart = cartStorage;
-  });
+  
 
   const myCart = createMutable({
     cart: cartStorage || ({ items: {}, region: 'USA' } as Cart),
@@ -130,6 +127,10 @@ export function StoreProvider(props: { children: JSX.Element }) {
       }
       setCartCount(0);
     },
+  });
+  onMount(() => {
+    setCartCount(getInitialCartTotal(cartStorage));
+    myCart.cart = cartStorage;
   });
   const value: ContextInterface = {
     slug: 'browniebits',
