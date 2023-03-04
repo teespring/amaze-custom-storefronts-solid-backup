@@ -1,3 +1,5 @@
+import { Accessor, Resource, Setter } from "solid-js";
+
 interface HeaderStyles {
   bgStyles: { backgroundColor: string };
   logo: { maxHeight: string };
@@ -279,4 +281,42 @@ export interface FullProduct {
   fulfillmentDetails?: { productionTechniques?: string[] };
   isPublic?: boolean;
   visibility?: string;
+}
+
+export interface ContextInterface {
+  slug: string;
+  theme: Resource<ThemeInfo>;
+  storeInfo: Resource<StoreInfo>;
+  collections: Resource<Collections>;
+  products: Resource<ProductCollection>;
+  searchOpen: Accessor<boolean>;
+  setSearchOpen: Setter<boolean>;
+  cartCount: Accessor<number>;
+  setCartCount: Setter<number>;
+  cart: {
+    cart: Cart;
+    addProduct(addCartItem: AddCartItem): void;
+    clear(): void;
+  };
+}
+interface CartItem {
+  colorID: string;
+  sizeID: string;
+  productID: string;
+  quantity: number;
+  slug: string;
+  itemGroupID: string;
+}
+export interface Cart {
+  items: Record<string, CartItem>;
+  region: string;
+}
+export interface AddCartItem {
+  sku: string;
+  colorID: string;
+  sizeID: string;
+  productID: string;
+  quantity: number;
+  itemGroupID: string;
+  slug: string;
 }

@@ -5,19 +5,20 @@ import {
   Resource,
   JSX,
   createSignal,
-  createEffect,
   Accessor,
   Setter,
   onMount,
 } from 'solid-js';
 import { createMutable } from 'solid-js/store';
-import { useBrowserLocation, useStorage } from 'solidjs-use';
+import { useBrowserLocation } from 'solidjs-use';
 import {
   ThemeInfo,
   StoreInfo,
   Collections,
-  Product,
   ProductCollection,
+  ContextInterface,
+  Cart,
+  AddCartItem
 } from './typeDefs';
 import { isServer } from 'solid-js/web';
 
@@ -61,43 +62,7 @@ const fetchProducts = async (numProducts: string) =>
     )
   ).json();
 
-interface ContextInterface {
-  slug: string;
-  theme: Resource<ThemeInfo>;
-  storeInfo: Resource<StoreInfo>;
-  collections: Resource<Collections>;
-  products: Resource<ProductCollection>;
-  searchOpen: Accessor<boolean>;
-  setSearchOpen: Setter<boolean>;
-  cartCount: Accessor<number>;
-  setCartCount: Setter<number>;
-  cart: {
-    cart: Cart;
-    addProduct(addCartItem: AddCartItem): void;
-    clear(): void;
-  };
-}
-interface CartItem {
-  colorID: string;
-  sizeID: string;
-  productID: string;
-  quantity: number;
-  slug: string;
-  itemGroupID: string;
-}
-interface Cart {
-  items: Record<string, CartItem>;
-  region: string;
-}
-interface AddCartItem {
-  sku: string;
-  colorID: string;
-  sizeID: string;
-  productID: string;
-  quantity: number;
-  itemGroupID: string;
-  slug: string;
-}
+
 const StoreContext = createContext<ContextInterface>();
 
 export function StoreProvider(props: { children: JSX.Element }) {
@@ -136,7 +101,7 @@ export function StoreProvider(props: { children: JSX.Element }) {
   onMount(() => {
     setCartCount(getInitialCartTotal(cartStorage));
   });
-  
+
   const myCart = createMutable({
     cart: cartStorage || ({ items: {}, region: 'USA' } as Cart),
     addProduct(addCartItem: AddCartItem) {

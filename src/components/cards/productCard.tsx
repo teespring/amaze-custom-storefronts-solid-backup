@@ -31,7 +31,15 @@ export default function ProductCard(props: { product?: Product }) {
           </A>
           <button
             onClick={() => {
-              cart.addProduct({colorID: '12', sizeID: '34', productID: '56', quantity: 2, itemGroupID: '78', slug: 'myProd', sku: props.product?.id?.toString()!});
+              cart.addProduct({
+                colorID: '12',
+                sizeID: '34',
+                productID: '56',
+                quantity: 1,
+                itemGroupID: '78',
+                slug: props.product?.url?.split('?')[0].replace('/', '')!,
+                sku: props.product?.id?.toString()!,
+              });
             }}
             class={styles.quickAddButton}
           >
@@ -41,17 +49,17 @@ export default function ProductCard(props: { product?: Product }) {
       </Show>
       <Show when={!props.product}>
         <div class={styles.productCard}>
-            <div class={styles.noProductImage}></div>
-            
-            <div class={styles.productDetails}>
-              <div class={styles.info}>
-                <p class={styles.name}>Product Name</p>
-                <p class={styles.type}>Product Type</p>
-              </div>
-              <div class={styles.price}>
-                <p>$0.00</p>
-              </div>
+          <div class={styles.noProductImage}></div>
+
+          <div class={styles.productDetails}>
+            <div class={styles.info}>
+              <p class={styles.name}>Product Name</p>
+              <p class={styles.type}>Product Type</p>
             </div>
+            <div class={styles.price}>
+              <p>$0.00</p>
+            </div>
+          </div>
         </div>
       </Show>
     </>

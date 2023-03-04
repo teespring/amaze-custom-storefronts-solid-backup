@@ -1,19 +1,28 @@
 import styles from './mainHeader.module.scss';
-import { Show, For, Switch, Match, Suspense, createMemo, createEffect } from 'solid-js';
+import {
+  Show,
+  For,
+  Switch,
+  Match,
+  Suspense,
+  createMemo,
+  createEffect,
+} from 'solid-js';
 import { A, useLocation } from 'solid-start';
 import { useStoreInfo } from '../../lib/store';
 import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
 export default function MainHeader() {
   const location = useLocation();
-  const { theme, storeInfo, collections, cartCount, setSearchOpen } = useStoreInfo()!;
-  
+  const { theme, storeInfo, collections, cartCount, setSearchOpen } =
+    useStoreInfo()!;
+
   createMemo(() => {
-    console.log('CART IN HEADER', cartCount())
-  })
+    console.log('CART IN HEADER', cartCount());
+  });
   createEffect(() => {
-    console.log('CART IN HEADER', cartCount())
-  })
+    console.log('CART IN HEADER', cartCount());
+  });
   return (
     <Suspense>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
@@ -47,23 +56,26 @@ export default function MainHeader() {
                       {collection.name}
                     </A>
                     <Show when={collection.collections}>
-                    <div class={styles.subMenuBridge}/>
-                    <div class={styles.subMenu}>
-                      <For each={collection.collections}>
-                      {(collection) => {
-                        return <A class={`${
-                          location.pathname == '/' + collection.slug
-                            ? styles.selected
-                            : ''
-                        }`}
-                        href={`/${collection.slug}`}>
-                          {collection.name}
-                          </A>
-                      }}
-                      </For>
-                    </div>
+                      <div class={styles.subMenuBridge} />
+                      <div class={styles.subMenu}>
+                        <For each={collection.collections}>
+                          {(collection) => {
+                            return (
+                              <A
+                                class={`${
+                                  location.pathname == '/' + collection.slug
+                                    ? styles.selected
+                                    : ''
+                                }`}
+                                href={`/${collection.slug}`}
+                              >
+                                {collection.name}
+                              </A>
+                            );
+                          }}
+                        </For>
+                      </div>
                     </Show>
-                    
                   </div>
                 );
               }}
@@ -93,28 +105,28 @@ export default function MainHeader() {
                       <A href={social.url!} target="_blank">
                         <Switch>
                           <Match when={social.id == 'youtube'}>
-                          <i class={`fa-brands fa-youtube`} />
+                            <i class={`fa-brands fa-youtube`} />
                           </Match>
                           <Match when={social.id == 'instagram'}>
-                          <i class={`fa-brands fa-instagram`} />
+                            <i class={`fa-brands fa-instagram`} />
                           </Match>
                           <Match when={social.id == 'website'}>
-                          <i class={`fa-solid fa-link`} />
+                            <i class={`fa-solid fa-link`} />
                           </Match>
                           <Match when={social.id == 'facebook'}>
-                          <i class={`fa-brands fa-facebook`} />
+                            <i class={`fa-brands fa-facebook`} />
                           </Match>
                           <Match when={social.id == 'twitter'}>
-                          <i class={`fa-brands fa-twitter`} />
+                            <i class={`fa-brands fa-twitter`} />
                           </Match>
                           <Match when={social.id == 'twitch'}>
-                          <i class={`fa-brands fa-twitch`} />
+                            <i class={`fa-brands fa-twitch`} />
                           </Match>
                           <Match when={social.id == 'discord'}>
-                          <i class={`fa-brands fa-discord`} />
+                            <i class={`fa-brands fa-discord`} />
                           </Match>
                           <Match when={social.id == 'tiktok'}>
-                          <i class={`fa-brands fa-tiktok`} />
+                            <i class={`fa-brands fa-tiktok`} />
                           </Match>
                         </Switch>
                       </A>
@@ -123,14 +135,16 @@ export default function MainHeader() {
                 }}
               </For>
             </Show>
-            <button class={`customSearchButton ${styles.searchButton}`} onclick={() => setSearchOpen(prev => !prev)}>
-              <i class={`fa-solid fa-search`}  />
+            <button
+              class={`customSearchButton ${styles.searchButton}`}
+              onclick={() => setSearchOpen((prev) => !prev)}
+            >
+              <i class={`fa-solid fa-search`} />
             </button>
             <A href="/Cart" class={`customCartIcon ${styles.cartIcon}`}>
               <i class="fa-solid fa-cart-shopping" />
-              <span>{cartCount()}</span>
               <Show when={cartCount() > 0}>
-                
+                <span>{cartCount()}</span>
               </Show>
             </A>
           </div>

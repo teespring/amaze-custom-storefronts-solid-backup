@@ -1,7 +1,9 @@
-import { Show } from 'solid-js';
+import { For, Show } from 'solid-js';
 import { Title, Meta, A } from 'solid-start';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
+import styles from '../base.module.scss';
+import cartStyles from './cart.module.scss';
 
 export default function CartPage() {
   const { theme, storeInfo, cart, cartCount } = useStoreInfo()!;
@@ -9,7 +11,10 @@ export default function CartPage() {
     <main>
       <Title>{`Cart - ${storeInfo()?.name} Store`}</Title>
       <Meta property="og:title" content={`Cart - ${storeInfo()?.name} Store`} />
-      <Meta property="twitter:title" content={`Cart - ${storeInfo()?.name} Store`} />
+      <Meta
+        property="twitter:title"
+        content={`Cart - ${storeInfo()?.name} Store`}
+      />
       <Meta property="og:site_name" content={storeInfo()?.name} />
       <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
         <Meta
@@ -21,9 +26,31 @@ export default function CartPage() {
           content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
         />
       </Show>
-      <p>boop {cartCount()}</p>
-      <h1>Hello Cart {cart.total}</h1>
-      <A href="/checkout">Checkout</A>
+      <div class={cartStyles.cartPage}>
+        <div class={cartStyles.left}>
+          <div class={styles.collectionTitle}>
+            <h2>My Cart</h2>
+          </div>
+          <Show when={cartCount() > 0} fallback={<p>No Products</p>}>
+            <For each={Object.keys(cart.cart.items)}>
+              {(item) => {
+                return (
+                  <p>{cart.cart.items[item].slug}</p>
+                )
+              }}
+            </For>
+          </Show>
+          
+        </div>
+        <Show when={cartCount() > 0} fallback={<></>}>
+          <div class={cartStyles.right}>
+            <div class={cartStyles.section}>
+              <h4>Summary</h4>
+            </div>
+            <button onClick={cart.clear}>Clear Cart</button>
+          </div>
+        </Show>
+      </div>
     </main>
   );
 }
