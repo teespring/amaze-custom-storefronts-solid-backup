@@ -4,7 +4,7 @@ import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import { useStoreInfo } from '~/lib/store';
 
 export default function CartPage() {
-  const { theme, storeInfo, cart } = useStoreInfo()!;
+  const { theme, storeInfo, cart, cartCount } = useStoreInfo()!;
   return (
     <main>
       <Title>{`Cart - ${storeInfo()?.name} Store`}</Title>
@@ -21,7 +21,7 @@ export default function CartPage() {
           content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
         />
       </Show>
-
+      <p>boop {cartCount()}</p>
       <h1>Hello Cart {cart.total}</h1>
       <A href="/checkout">Checkout</A>
     </main>

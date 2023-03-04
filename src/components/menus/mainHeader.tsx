@@ -1,14 +1,21 @@
 import styles from './mainHeader.module.scss';
-import { Show, For, Switch, Match } from 'solid-js';
+import { Show, For, Switch, Match, Suspense, createMemo, createEffect } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 import { useStoreInfo } from '../../lib/store';
 import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
 export default function MainHeader() {
   const location = useLocation();
-  const { theme, storeInfo, collections, cart, setSearchOpen } = useStoreInfo()!;
+  const { theme, storeInfo, collections, cartCount, setSearchOpen } = useStoreInfo()!;
+  
+  createMemo(() => {
+    console.log('CART IN HEADER', cartCount())
+  })
+  createEffect(() => {
+    console.log('CART IN HEADER', cartCount())
+  })
   return (
-    <>
+    <Suspense>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
         <header class={`customHeader ${styles.header}`}>
           <A href="/">
@@ -121,13 +128,14 @@ export default function MainHeader() {
             </button>
             <A href="/Cart" class={`customCartIcon ${styles.cartIcon}`}>
               <i class="fa-solid fa-cart-shopping" />
-              <Show when={cart.count > 0}>
-                <span>{cart.count}</span>
+              <span>{cartCount()}</span>
+              <Show when={cartCount() > 0}>
+                
               </Show>
             </A>
           </div>
         </header>
       </Show>
-    </>
+    </Suspense>
   );
 }

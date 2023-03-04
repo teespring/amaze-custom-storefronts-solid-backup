@@ -10,14 +10,34 @@ import {
   Setter,
 } from 'solid-js';
 import { createMutable } from 'solid-js/store';
-import { useBrowserLocation } from 'solidjs-use';
-import { ThemeInfo, StoreInfo, Collections, Product, ProductCollection } from './typeDefs';
+import { useBrowserLocation, useStorage } from 'solidjs-use';
+import {
+  ThemeInfo,
+  StoreInfo,
+  Collections,
+  Product,
+  ProductCollection,
+} from './typeDefs';
+import { isServer } from 'solid-js/web';
 
 const location = useBrowserLocation();
 const hrefArray = location()
   .href?.replace(`${location().protocol}//`, '')
   .split('.');
 const subDomain = hrefArray ? hrefArray[0] : 'www';
+
+let cartStorage = { items: {}, region: 'USA' } as Cart;
+if (!isServer) {
+  cartStorage = JSON.parse(localStorage.getItem('browniebits-cart')!);
+  console.log('GotCartStorage', cartStorage);
+}
+const getInitialCartTotal = (cartFromStorage: Cart) => {
+  return Object.keys(cartFromStorage.items).reduce(
+    (total: number, sku: string) => total + cartFromStorage.items[sku].quantity,
+    0
+  );
+};
+
 const fetchTheme = async (slug: string) =>
   (
     await fetch(
@@ -32,7 +52,6 @@ const fetchCollections = async (slug: string) =>
       `https://commerce.teespring.com/v1/stores/collections?slug=${slug}`
     )
   ).json();
-
 const fetchProducts = async (numProducts: string) =>
   (
     await fetch(
@@ -48,19 +67,38 @@ interface ContextInterface {
   products: Resource<ProductCollection>;
   searchOpen: Accessor<boolean>;
   setSearchOpen: Setter<boolean>;
+  cartCount: Accessor<number>;
+  setCartCount: Setter<number>;
   cart: {
-    products: Product[];
-    readonly total: any;
-    readonly count: any;
-    addProduct(product: Product): void;
+    cart: Cart;
+    addProduct(addCartItem: AddCartItem): void;
     clear(): void;
   };
+}
+interface CartItem {
+  colorID: string;
+  sizeID: string;
+  productID: string;
+  quantity: number;
+  slug: string;
+  itemGroupID: string;
+}
+interface Cart {
+  items: Record<string, CartItem>;
+  region: string;
+}
+interface AddCartItem {
+  sku: string;
+  colorID: string;
+  sizeID: string;
+  productID: string;
+  quantity: number;
+  itemGroupID: string;
+  slug: string;
 }
 const StoreContext = createContext<ContextInterface>();
 
 export function StoreProvider(props: { children: JSX.Element }) {
-  const [searchOpen, setSearchOpen] = createSignal(false);
-
   const [theme] = createResource<ThemeInfo, string>(
     () => 'browniebits',
     fetchTheme,
@@ -90,25 +128,37 @@ export function StoreProvider(props: { children: JSX.Element }) {
     }
   );
 
-  const cart = createMutable({
-    products: [] as Product[],
-    get total() {
-      return this.products.reduce(
-        (total: number, product: Product) =>
-          total + Number(product.price?.replace('$', '')),
-        0
-      );
-    },
-    get count() {
-      return this.products.length;
-    },
-    addProduct(product: Product) {
-      this.products.push(product);
-      //   window.localStorage.setItem('cart', JSON.stringify(this.products));
+  const [cartCount, setCartCount] = createSignal(
+    getInitialCartTotal(cartStorage)
+  );
+  const [searchOpen, setSearchOpen] = createSignal(false);
+
+  const myCart = createMutable({
+    cart: cartStorage || ({ items: {}, region: 'USA' } as Cart),
+    addProduct(addCartItem: AddCartItem) {
+      if (this.cart.items[addCartItem.sku] !== undefined) {
+        this.cart.items[addCartItem.sku].quantity += addCartItem.quantity;
+      } else {
+        this.cart.items[addCartItem.sku] = {
+          colorID: addCartItem.colorID,
+          sizeID: addCartItem.sizeID,
+          productID: addCartItem.productID,
+          quantity: addCartItem.quantity,
+          itemGroupID: addCartItem.itemGroupID,
+          slug: addCartItem.slug,
+        };
+      }
+      if (!isServer) {
+        localStorage.setItem('browniebits-cart', JSON.stringify(this.cart));
+      }
+      setCartCount((prev) => prev + addCartItem.quantity);
     },
     clear() {
-      this.products = [];
-      //   window.localStorage.setItem('cart', JSON.stringify(this.products));
+      this.cart = { items: {}, region: 'USA' };
+      if (!isServer) {
+        localStorage.setItem('browniebits-cart', JSON.stringify(this.cart));
+      }
+      setCartCount(0);
     },
   });
   const value: ContextInterface = {
@@ -116,10 +166,12 @@ export function StoreProvider(props: { children: JSX.Element }) {
     theme: theme,
     storeInfo: storeInfo,
     collections: collections,
-    cart: cart,
+    cart: myCart,
     products: products,
     searchOpen: searchOpen,
-    setSearchOpen: setSearchOpen
+    setSearchOpen: setSearchOpen,
+    cartCount: cartCount,
+    setCartCount: setCartCount,
   };
   return (
     <StoreContext.Provider value={value}>
