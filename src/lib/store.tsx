@@ -62,7 +62,6 @@ const fetchProducts = async (numProducts: string) =>
     )
   ).json();
 
-
 const StoreContext = createContext<ContextInterface>();
 
 export function StoreProvider(props: { children: JSX.Element }) {
@@ -98,15 +97,13 @@ export function StoreProvider(props: { children: JSX.Element }) {
   const [cartCount, setCartCount] = createSignal(0);
   const [searchOpen, setSearchOpen] = createSignal(false);
 
-  
-
   const myCart = createMutable({
-    cart: cartStorage || ({ items: {}, region: 'USA' } as Cart),
+    cart: { items: {}, region: 'USA' } as Cart,
     addProduct(addCartItem: AddCartItem) {
-      if (this.cart.items[addCartItem.sku] !== undefined) {
-        this.cart.items[addCartItem.sku].quantity += addCartItem.quantity;
+      if (this.cart.items[addCartItem.slug] !== undefined) {
+        this.cart.items[addCartItem.slug].quantity += addCartItem.quantity;
       } else {
-        this.cart.items[addCartItem.sku] = {
+        this.cart.items[addCartItem.slug] = {
           colorID: addCartItem.colorID,
           sizeID: addCartItem.sizeID,
           productID: addCartItem.productID,
@@ -120,6 +117,26 @@ export function StoreProvider(props: { children: JSX.Element }) {
       }
       setCartCount((prev) => prev + addCartItem.quantity);
     },
+    updateCart(newCart: Cart) {
+      this.cart = newCart;
+    },
+    removeItem(sku: string) {
+      setCartCount(prev => prev - this.cart.items[sku].quantity);
+      delete this.cart.items[sku];
+      if (!isServer) {
+        localStorage.setItem('browniebits-cart', JSON.stringify(this.cart));
+      }
+    },
+    updateItemQuantity(slug: string, newQuantity: number) {
+      if (this.cart.items[slug] != undefined) {
+        const difference = newQuantity - this.cart.items[slug].quantity;
+        setCartCount(prev => prev + difference);
+        this.cart.items[slug].quantity = newQuantity;
+        if (!isServer) {
+          localStorage.setItem('browniebits-cart', JSON.stringify(this.cart));
+        }
+      }
+    },
     clear() {
       this.cart = { items: {}, region: 'USA' };
       if (!isServer) {
@@ -130,7 +147,9 @@ export function StoreProvider(props: { children: JSX.Element }) {
   });
   onMount(() => {
     setCartCount(getInitialCartTotal(cartStorage));
-    myCart.cart = cartStorage;
+    if(cartStorage) {
+      myCart.updateCart(cartStorage)
+    }
   });
   const value: ContextInterface = {
     slug: 'browniebits',

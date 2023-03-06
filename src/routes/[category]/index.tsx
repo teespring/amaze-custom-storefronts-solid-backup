@@ -1,4 +1,4 @@
-import { createMemo, createResource, For, Show, Suspense } from 'solid-js';
+import { createResource, For, Show, Suspense } from 'solid-js';
 import { Title, Meta, RouteDataArgs, useRouteData } from 'solid-start';
 import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
@@ -59,6 +59,7 @@ export default function CategoryPage() {
               content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
             />
           </Show>
+
           <div class={styles.collectionPage}>
             <div class={styles.collectionTitle}>
               <h2>{productCollection().collection}</h2>

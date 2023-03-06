@@ -1,0 +1,87 @@
+@import '~/variables';
+.cartItem {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  .image {
+    width: 150px;
+    @include tablet {
+        width: 100px;
+    }
+    @include phone {
+        width: 75px;
+    }
+  }
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    .name {
+      color: #000000;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .type {
+      color: #6a6f72;
+      font-weight: 400;
+      font-size: 14px;
+    }
+    .options {
+      flex: 1;
+      color: #6a6f72;
+      font-weight: 400;
+      font-size: 14px;
+    }
+    .remove {
+      background: none;
+      border: none;
+      color: #595959;
+      cursor: pointer;
+      padding: 0;
+    }
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    .quantity {
+      border: 1px solid #6a6f72;
+      display: flex;
+      button {
+        background: none;
+        border: none;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 100;
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+      }
+      input {
+        height: 42px;
+        border: none;
+        width: 60px;
+        text-align: center;
+        font-size: 16px;
+      }
+    }
+    .space {
+      flex: 1;
+    }
+    .total {
+      color: #bfbfbf;
+      font-weight: 400;
+      font-size: 14px;
+    }
+    @include phone {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+    }
+  }
+}

@@ -34,7 +34,7 @@ export default function ProductCard(props: { product?: Product }) {
               cart.addProduct({
                 colorID: '12',
                 sizeID: '34',
-                productID: '56',
+                productID: productID!,
                 quantity: 1,
                 itemGroupID: '78',
                 slug: props.product?.url?.split('?')[0].replace('/', '')!,

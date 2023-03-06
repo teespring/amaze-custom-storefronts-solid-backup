@@ -232,13 +232,13 @@ export interface FullProduct {
   gender?: string;
   ageGroup?: string;
   primaryProduct?: {
-    variationId?: number;
-    teespringId?: number;
-    productId?: number;
-    productType?: string;
-    productionEndDate?: string;
-    color?: string;
-    sizes?: {
+    variationId: number;
+    teespringId: number;
+    productId: number;
+    productType: string;
+    productionEndDate: string;
+    color: string;
+    sizes: {
       id?: number;
       label?: string;
       price?: string;
@@ -296,10 +296,13 @@ export interface ContextInterface {
   cart: {
     cart: Cart;
     addProduct(addCartItem: AddCartItem): void;
+    updateCart(newCart: Cart): void;
+    removeItem(sku: string): void;
+    updateItemQuantity(slug: string, newQuantity: number): void;
     clear(): void;
   };
 }
-interface CartItem {
+export interface CartItem {
   colorID: string;
   sizeID: string;
   productID: string;

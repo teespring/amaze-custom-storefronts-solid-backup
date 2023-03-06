@@ -16,13 +16,6 @@ export default function MainHeader() {
   const location = useLocation();
   const { theme, storeInfo, collections, cartCount, setSearchOpen } =
     useStoreInfo()!;
-
-  createMemo(() => {
-    console.log('CART IN HEADER', cartCount());
-  });
-  createEffect(() => {
-    console.log('CART IN HEADER', cartCount());
-  });
   return (
     <Suspense>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
