@@ -1,4 +1,4 @@
-import { createEffect, createResource, For, Show, Suspense } from 'solid-js';
+import { createEffect, createMemo, createResource, For, Show, Suspense } from 'solid-js';
 import { Title, Meta, RouteDataArgs, useRouteData, refetchRouteData } from 'solid-start';
 import CartLine from '~/components/cartItem';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
@@ -7,20 +7,19 @@ import { CartItem, FullProduct } from '~/lib/typeDefs';
 import styles from '../base.module.scss';
 import cartStyles from './cart.module.scss';
 
-const fetchProducts = async (props: {cartProducts: Record<string, CartItem>, count: number}) => {
-  const promises =  Object.keys(props.cartProducts).map(async productID => (
+const fetchProducts = async (cartProducts: Record<string, CartItem>) => {
+  const promises =  Object.keys(cartProducts).map(async productID => (
     await fetch(
-      `https://teespring.com/api/v1/listings?slug=${props.cartProducts[productID].slug}&productId=${props.cartProducts[productID].productID}`
+      `https://teespring.com/api/v1/listings?slug=${cartProducts[productID].slug}&productId=${cartProducts[productID].productID}`
     )
   ).json())
   return Promise.all(promises)
 }
 
 export const routeData = ({ params }: RouteDataArgs) => {
-  console.log('Getting Data')
-  const { cart, cartCount } = useStoreInfo()!;
-  const [cartCollection] = createResource<FullProduct[], ({cartProducts: Record<string, CartItem>, count: number})>(
-    () => ({ cartProducts: cart.cart.items, count: cartCount() }),
+  const { cart } = useStoreInfo()!;
+  const [cartCollection] = createResource<FullProduct[], Record<string, CartItem>>(
+    () =>  cart.cart.items ,
     fetchProducts,
     {
       initialValue: [],
@@ -32,6 +31,9 @@ export const routeData = ({ params }: RouteDataArgs) => {
 export default function CartPage() {
   const { theme, storeInfo, cart, cartCount } = useStoreInfo()!;
   const cartCollection = useRouteData<typeof routeData>();
+
+  const filteredProducts = createMemo(() => cartCollection().filter((product) => cart.cart.items[product.url!] !== undefined));
+  const cartTotal = createMemo(() => filteredProducts().reduce((total, product) => total + (parseFloat(product.primaryProduct?.at(0)?.price!) * cart.cart.items[product.url!].quantity ), 0));
   return (
     <main>
       <Title>{`Cart - ${storeInfo()?.name} Store`}</Title>
@@ -57,9 +59,9 @@ export default function CartPage() {
             <h2>My Cart</h2>
           </div>
           <Suspense fallback={<CartLoader />}>
-          <Show when={cartCount() > 0} fallback={<p>No Products</p>}>
+          <Show when={filteredProducts().length > 0} fallback={<p>No Products</p>}>
             <div class={cartStyles.cartItems}>
-              <For each={cartCollection()}>
+              <For each={filteredProducts()}>
                 {(item) => {
                   if (cart.cart.items[item.url!] === undefined) return <></>;
                   return <CartLine product={item} quantity={`${cart.cart.items[item.url!] ? cart.cart.items[item.url!].quantity : 0}`} />;
@@ -69,13 +71,13 @@ export default function CartPage() {
           </Show>
           </Suspense>
         </div>
-        <Show when={cartCount() > 0} fallback={<></>}>
+        <Show when={filteredProducts().length > 0} fallback={<></>}>
           <div class={cartStyles.right}>
             <div class={cartStyles.section}>
               <h4>Summary</h4>
               <div class={cartStyles.subtotal}>
                 <p>SubTotal</p>
-                <h3>$100.00</h3>
+                <h3>${cartTotal().toFixed(2)}</h3>
               </div>
               <div class={cartStyles.actionButtons}></div>
             </div>
