@@ -2,11 +2,8 @@ import {
   createResource,
   createContext,
   useContext,
-  Resource,
   JSX,
   createSignal,
-  Accessor,
-  Setter,
   onMount,
 } from 'solid-js';
 import { createMutable } from 'solid-js/store';
@@ -21,6 +18,12 @@ import {
   AddCartItem
 } from './typeDefs';
 import { isServer } from 'solid-js/web';
+
+
+    console.log('SOLID_APP',process.env.SOLID_APP_STORE_SLUG) // undefined (in terminal)
+    console.log('SERVER',process.env.SERVER_STORE_SLUG) // undefined (in terminal)
+    console.log('VITE',process.env.VITE_STORE_SLUG) // undefined (in terminal)
+
 
 const location = useBrowserLocation();
 const hrefArray = location()
