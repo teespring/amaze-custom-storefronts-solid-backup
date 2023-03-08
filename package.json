@@ -2,12 +2,13 @@
   "name": "amaze-custom-storefronts-solid",
   "scripts": {
     "dev": "solid-start dev",
-    "build": "solid-start build",
+    "build": "cross-env solid-start build",
     "start": "solid-start start"
   },
   "type": "module",
   "devDependencies": {
     "@types/node": "^18.11.18",
+    "cross-env": "^7.0.3",
     "esbuild": "^0.14.54",
     "postcss": "^8.4.21",
     "solid-start-netlify": "^0.2.21",
