@@ -36,6 +36,7 @@ export default function CartLine(props: {
       <div class={styles.right}>
         <div class={styles.quantity}>
           <button
+            disabled={props.quantity === '1'}
             onClick={() =>
               cart.updateItemQuantity(
                 props.product.url!,
@@ -54,6 +55,7 @@ export default function CartLine(props: {
                 parseInt(evt.currentTarget.value)
               )
             }
+            min='1'
           />
           <button
             onClick={() =>

@@ -20,9 +20,9 @@ import {
 import { isServer } from 'solid-js/web';
 
 
-// console.log('SOLID_APP',process?.env?.SOLID_APP_STORE_SLUG) // undefined (in terminal)
-// console.log('SERVER',process?.env?.SERVER_STORE_SLUG) // undefined (in terminal)
-// console.log('VITE',process?.env?.VITE_STORE_SLUG) // undefined (in terminal)
+// console.log('SOLID_APP',import.meta.env.SOLID_APP_STORE_SLUG) // undefined (in terminal)
+// console.log('SERVER',import.meta.env.SERVER_STORE_SLUG) // undefined (in terminal)
+console.log('VITE',import.meta.env.VITE_STORE_SLUG) // undefined (in terminal)
 
 const location = useBrowserLocation();
 const hrefArray = location()
@@ -130,7 +130,7 @@ export function StoreProvider(props: { children: JSX.Element }) {
       }
     },
     updateItemQuantity(slug: string, newQuantity: number) {
-      if (this.cart.items[slug] != undefined) {
+      if (this.cart.items[slug] != undefined && newQuantity !== 0) {
         const difference = newQuantity - this.cart.items[slug].quantity;
         setCartCount(prev => prev + difference);
         this.cart.items[slug].quantity = newQuantity;
