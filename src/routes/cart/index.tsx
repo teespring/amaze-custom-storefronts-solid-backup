@@ -19,7 +19,7 @@ import {
 } from 'solid-start';
 import CartLine from '~/components/cartItem';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
-import { useStoreInfo } from '~/lib/store';
+import { useStoreInfo, slug } from '~/lib/store';
 import { CartItem, FullProduct } from '~/lib/typeDefs';
 import styles from '../base.module.scss';
 import cartStyles from './cart.module.scss';
@@ -70,7 +70,7 @@ export default function CartPage() {
     let checkoutStorage = '';
     if (!isServer) {
       checkoutStorage =
-        JSON.parse(localStorage.getItem('browniebits-checkout')!) ||
+        JSON.parse(localStorage.getItem(`${slug}-checkout`)!) ||
         ('' as string);
     }
     console.log('mmm');

@@ -1,17 +1,18 @@
-import { createResource, For, Show, Suspense } from 'solid-js';
+import { createResource, createSignal, For, Show, Suspense } from 'solid-js';
 import { Title, Meta, RouteDataArgs, useRouteData } from 'solid-start';
 import ProductCard from '~/components/cards/productCard';
 import FixAssetPathUrl from '~/components/helpers/FixAssetPathUrl';
 import CollectionLoader from '~/components/loaders/CollectionLoader';
 import NoCollection from '~/components/noCollection';
-import { useStoreInfo } from '~/lib/store';
+import { useStoreInfo, slug } from '~/lib/store';
 import { ProductCollection } from '~/lib/typeDefs';
 import styles from '../base.module.scss';
+
 
 const fetchProducts = async (category: string) =>
   (
     await fetch(
-      `https://commerce.teespring.com/v1/stores/products?collection=${category}&slug=browniebits&currency=USD&region=USA&per=150`
+      `https://commerce.teespring.com/v1/stores/products?collection=${category}&slug=${slug}&currency=USD&region=USA&per=150`
     )
   ).json();
 
@@ -27,8 +28,9 @@ export const routeData = ({ params }: RouteDataArgs) => {
 };
 
 export default function CategoryPage() {
-  const { theme, storeInfo, cart } = useStoreInfo()!;
+  const { theme, storeInfo } = useStoreInfo()!;
   const productCollection = useRouteData<typeof routeData>();
+  const [fullProductInfo, setFullProductInfo] = createSignal(null);
   return (
     <Suspense fallback={<CollectionLoader />}>
       <Show when={productCollection().collection} fallback={<NoCollection />}>
@@ -49,14 +51,21 @@ export default function CategoryPage() {
             } Store`}
           />
           <Meta property="og:site_name" content={storeInfo()?.name} />
-          <Show when={theme()?.content?.heroBanner.containerBg} fallback={<></>}>
+          <Show
+            when={theme()?.content?.heroBanner.containerBg}
+            fallback={<></>}
+          >
             <Meta
               property="og:image"
-              content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+              content={FixAssetPathUrl(
+                theme()?.content?.heroBanner.containerBg!
+              )}
             />
             <Meta
               property="twitter:image"
-              content={FixAssetPathUrl(theme()?.content?.heroBanner.containerBg!)}
+              content={FixAssetPathUrl(
+                theme()?.content?.heroBanner.containerBg!
+              )}
             />
           </Show>
 
