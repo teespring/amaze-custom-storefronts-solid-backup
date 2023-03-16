@@ -20,6 +20,7 @@ import './root.scss';
 import MainFooter from './components/menus/mainFooter';
 import ImportedStyles from './components/importedStyles';
 import SearchSlideout from './components/searchSlideout';
+import MobileMenu from './components/menus/mobileMenu';
 
 export default function Root() {
   return (
@@ -69,6 +70,7 @@ export default function Root() {
                 <MainFooter />
                 <ImportedStyles />
                 <SearchSlideout />
+                <MobileMenu />
             </StoreProvider>
           </ErrorBoundary>
         </Suspense>

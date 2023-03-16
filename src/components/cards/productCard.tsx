@@ -4,9 +4,7 @@ import { FullProduct, Product } from '~/lib/typeDefs';
 import styles from './productCard.module.scss';
 import { Setter, Show } from 'solid-js';
 
-export default function ProductCard(props: {
-  product?: Product;
-}) {
+export default function ProductCard(props: { product?: Product }) {
   const { cart } = useStoreInfo()!;
   const productID = props.product?.url?.match(/pid=(\d+)/)?.at(1);
   const productSlug = props.product?.url?.split('?')?.at(0)?.split('/').at(1);
@@ -15,12 +13,13 @@ export default function ProductCard(props: {
       <Show when={props.product}>
         <div class={styles.productCard}>
           <A href={`/listing/${productSlug}?product=${productID}`}>
-            <img
-              class={styles.productImage}
-              src={props.product?.imageUrl}
-              alt={props.product?.name}
-              loading="lazy"
-            />
+            <div class={styles.productImage}>
+              <img
+                src={props.product?.imageUrl}
+                alt={props.product?.name}
+                loading="lazy"
+              />
+            </div>
             <div class={styles.productDetails}>
               <div class={styles.info}>
                 <p class={styles.name}>{props.product?.name}</p>
@@ -31,7 +30,7 @@ export default function ProductCard(props: {
               </div>
             </div>
           </A>
-            {/* <button
+          {/* <button
               onClick={() => {
                 props.setFullProductInfo(
                   `slug=${productSlug}&productId=${productID}`

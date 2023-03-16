@@ -99,6 +99,7 @@ export function StoreProvider(props: { children: JSX.Element }) {
 
   const [cartCount, setCartCount] = createSignal(0);
   const [searchOpen, setSearchOpen] = createSignal(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = createSignal(false);
 
   const myCart = createMutable({
     cart: { items: {}, region: 'USA' } as Cart,
@@ -165,6 +166,8 @@ export function StoreProvider(props: { children: JSX.Element }) {
     setSearchOpen: setSearchOpen,
     cartCount: cartCount,
     setCartCount: setCartCount,
+    mobileMenuOpen: mobileMenuOpen,
+    setMobileMenuOpen: setMobileMenuOpen
   };
   return (
     <StoreContext.Provider value={value}>

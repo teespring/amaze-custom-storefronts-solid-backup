@@ -1,41 +1,31 @@
-import styles from './mainHeader.module.scss';
-import {
-  Show,
-  For,
-  Switch,
-  Match,
-  Suspense,
-} from 'solid-js';
+import styles from './mobileMenu.module.scss';
+import { Show, For, Switch, Match, Suspense } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 import { useStoreInfo } from '../../lib/store';
 import FixAssetPathUrl from '../helpers/FixAssetPathUrl';
 
-export default function MainHeader() {
+export default function MobileMenu() {
   const location = useLocation();
-  const { theme, storeInfo, collections, cartCount, setSearchOpen, setMobileMenuOpen } =
+  const { theme, storeInfo, collections, mobileMenuOpen, setMobileMenuOpen } =
     useStoreInfo()!;
   return (
     <Suspense>
       <Show when={location.pathname != '/checkout'} fallback={<></>}>
-        <header class={`customHeader ${styles.header}`}>
-          <button class={`customMobileNavButton ${styles.mobileNavButton}`} onclick={() => setMobileMenuOpen((prev) => !prev)}><i class={`fa-solid fa-bars`} /></button>
-          <A href="/">
-            <div class={`customLogo ${styles.logo}`}>
-              <Show
-                when={theme()?.content && theme()?.content?.header.logo}
-                fallback={<h1>{storeInfo()?.name}</h1>}
-              >
-                <img
-                  src={FixAssetPathUrl(theme()?.content?.header.logo!)}
-                  height="44px"
-                />
-              </Show>
-            </div>
-          </A>
-          <nav class={`customNav ${styles.nav}`}>
+        <header
+          class={`${styles.mobileMenu} ${mobileMenuOpen() ? styles.open : ''}`}
+        >
+          <div class={styles.closeSection}>
+            <button
+              onclick={() => setMobileMenuOpen((prev) => !prev)}
+              class={styles.closeButton}
+            >
+              <i class={`fa-solid fa-close`} />
+            </button>
+          </div>
+          <nav class={styles.nav}>
             <For each={collections()?.collections}>
               {(collection) => {
-                console.log(location.pathname == '/' + collection.slug)
+                console.log(location.pathname == '/' + collection.slug);
                 return (
                   <div class={`customNavItem ${styles.navItem}`}>
                     <A
@@ -92,7 +82,7 @@ export default function MainHeader() {
               {(link) => {
                 return (
                   <div class={`customNavItem ${styles.navItem}`}>
-                    <A href={`${link.slug}`} target='_blank'>
+                    <A href={`${link.slug}`} target="_blank">
                       {link.name}
                     </A>
                   </div>
@@ -100,12 +90,12 @@ export default function MainHeader() {
               }}
             </For>
           </nav>
-          <div class={`customRightBar ${styles.rightBar}`}>
+          <div class={styles.rightBar}>
             <Show when={theme()} fallback={<></>}>
               <For each={theme()?.brand?.socialMedia}>
                 {(social) => {
                   return (
-                    <div class={`customSocialLink ${styles.socialLink}`}>
+                    <div class={styles.socialLink}>
                       <A href={social.url!} target="_blank">
                         <Switch>
                           <Match when={social.id == 'youtube'}>
@@ -139,18 +129,6 @@ export default function MainHeader() {
                 }}
               </For>
             </Show>
-            <button
-              class={`customSearchButton ${styles.searchButton}`}
-              onclick={() => setSearchOpen((prev) => !prev)}
-            >
-              <i class={`fa-solid fa-search`} />
-            </button>
-            <A href="/Cart" class={`customCartIcon ${styles.cartIcon}`}>
-              <i class="fa-solid fa-cart-shopping" />
-              <Show when={cartCount() > 0}>
-                <span>{cartCount()}</span>
-              </Show>
-            </A>
           </div>
         </header>
       </Show>

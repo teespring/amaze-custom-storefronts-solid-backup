@@ -3,11 +3,11 @@ import { useStoreInfo } from '~/lib/store';
 import FixAssetPathUrl from './helpers/FixAssetPathUrl';
 
 export default function ImportedStyles() {
-  const { theme, storeInfo, collections, searchOpen } = useStoreInfo()!;
+  const { theme, storeInfo, collections, searchOpen, mobileMenuOpen } = useStoreInfo()!;
   return (
     <Style>{`
         body {
-          overflow-y: ${searchOpen() ? 'hidden !important' : 'scroll'};
+          overflow-y: ${searchOpen() || mobileMenuOpen() ? 'hidden !important' : 'scroll'};
         }
 
         .customFooter {
@@ -21,11 +21,17 @@ export default function ImportedStyles() {
         .customHeader {
           background: ${theme()?.styles?.header.bgStyles.backgroundColor};
         }
+        .customHeader .customMobileNavButton {
+          color: ${theme()?.styles?.header.textStyles.color};
+        }
         .customHeader .customLogo h1 {
           color: ${theme()?.styles?.header.textStyles.color};
         }
         .customHeader .customNav .customNavItem > a {
           color: ${theme()?.styles?.header.textStyles.color};
+        }
+        .customHeader .customNav .customNavItem > a.active {
+          border: 1px solid ${theme()?.styles?.header.textStyles.color};
         }
         .customHeader .customRightBar .customCartIcon svg {
           color: ${theme()?.styles?.header.textStyles.color};

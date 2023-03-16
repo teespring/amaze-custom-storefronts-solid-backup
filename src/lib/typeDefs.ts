@@ -139,7 +139,7 @@ interface Content {
     showSocialIcons: boolean;
   };
   header: {
-    customLinks: [];
+    customLinks: {name: string, slug: string, id: string}[];
     hideSearch: boolean;
     logo: string;
     showAbout: boolean;
@@ -293,6 +293,8 @@ export interface ContextInterface {
   setSearchOpen: Setter<boolean>;
   cartCount: Accessor<number>;
   setCartCount: Setter<number>;
+  mobileMenuOpen: Accessor<boolean>;
+  setMobileMenuOpen: Setter<boolean>;
   cart: {
     cart: Cart;
     addProduct(addCartItem: AddCartItem): void;
